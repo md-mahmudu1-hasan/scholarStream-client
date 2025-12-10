@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link, Links } from "react-router";
+import { Link, Links, NavLink } from "react-router";
 import Container from "../../Shared/Container";
+import "./Navber.css";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -35,21 +36,21 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex items-center space-x-8 text-[15px] font-medium text-gray-700">
-            <Link
+            <NavLink
               to="/"
               onClick={handleMenuClick}
               className="hover:text-blue-700 cursor-pointer transition"
             >
               Home
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/all-scholarships"
               onClick={handleMenuClick}
               className="hover:text-blue-700 cursor-pointer transition"
             >
               All Scholarships
-            </Link>
+            </NavLink>
 
             <Link
               to="/login"
