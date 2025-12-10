@@ -1,11 +1,14 @@
-import React from 'react'
-import useAuth from '../../Hooks/useAuth'
+import React from "react";
+import useAuth from "../../Hooks/useAuth";
+import Banner from "./Banner";
 
 const Home = () => {
-  const {user} = useAuth()
-  return (
-    <div className='bg-gray-200 mt-17'>{user?.displayName}</div>
-  )
-}
+  const { user } = useAuth();
+  console.log(user);
 
-export default Home
+  return <div className="bg-gray-200 mt-17">
+    <Banner></Banner>
+  </div>;
+};
+
+export default Home;

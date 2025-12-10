@@ -6,9 +6,11 @@ import { updateProfile } from "firebase/auth";
 import { auth } from "../../Utilities/firebase.init";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import useAxios from "../../Hooks/useAxios";
 
 export default function Signup() {
   const [showPass, setShowPass] = useState(false);
+  const axiosInstance = useAxios();
   const navigate = useNavigate();
   const { createUser, googleSignIn } = useAuth();
 
@@ -21,15 +23,28 @@ export default function Signup() {
 
   const onSubmit = async (data) => {
     const { name, email, photoURL, password } = data;
+
     try {
       if (!createUser) return;
-      await createUser(email, password);
+
+      // create user
+      const result = await createUser(email, password);
+
+      // update profile
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: photoURL || undefined,
         });
+
+        // save to database
+        await axiosInstance.post("/users", {
+          name,
+          email,
+          photoURL,
+        });
       }
+
       reset();
       navigate("/");
     } catch (err) {
@@ -40,7 +55,17 @@ export default function Signup() {
   const handleGoogle = async () => {
     try {
       if (!googleSignIn) return;
-      await googleSignIn();
+
+      const res = await googleSignIn();
+
+      const userInfo = {
+        email: res.user.email,
+        name: res.user.displayName,
+        photoURL: res.user.photoURL,
+      };
+
+      await axiosInstance.post("/users", userInfo);
+
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -75,6 +100,7 @@ export default function Signup() {
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
           )}
+
           <div className="h-3" />
 
           <label className="block text-sm font-medium mb-1">Email</label>
@@ -93,6 +119,7 @@ export default function Signup() {
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
           )}
+
           <div className="h-3" />
 
           <label className="block text-sm font-medium mb-1">Photo URL</label>
@@ -112,6 +139,7 @@ export default function Signup() {
               {errors.photoURL.message}
             </p>
           )}
+
           <div className="h-3" />
 
           <label className="block text-sm font-medium mb-1">Password</label>
