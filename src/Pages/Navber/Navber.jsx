@@ -51,14 +51,6 @@ export default function Navbar() {
             >
               All Scholarships
             </NavLink>
-                        <NavLink
-              to="/payment"
-              onClick={handleMenuClick}
-              className="hover:text-blue-700 transition"
-            >
-              Payment
-            </NavLink>
-
             {/* If User Logged In → Show Profile + Dropdown */}
             {user ? (
               <div className="relative">
@@ -110,7 +102,7 @@ export default function Navbar() {
                 </li>
               </>
             )}
-          </ul> 
+          </ul>
           <button
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}

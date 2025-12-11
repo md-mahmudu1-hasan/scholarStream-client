@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import useAxios from "../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 const AddScholarshipForm = () => {
+  const axiosInstance = useAxios();
   const [formData, setFormData] = useState({
     scholarshipName: "",
     universityName: "",
@@ -23,8 +26,26 @@ const AddScholarshipForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Scholarship Data:", formData);
-    // এখানে তুমি API call করতে পারো
+
+    axiosInstance.post("/scolership", formData).then((res) => {
+      toast.success("Scholarship added successfully");
+
+      // Reset form fields properly
+      setFormData({
+        scholarshipName: "",
+        universityName: "",
+        universityImage: "",
+        universityWorldRank: "",
+        degree: "",
+        category: "",
+        subject: "",
+        location: "",
+        deadline: "",
+        applicationFees: "",
+        stipend: "",
+        description: "",
+      });
+    });
   };
 
   return (

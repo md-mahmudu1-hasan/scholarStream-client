@@ -9,7 +9,6 @@ const AllScholarships = () => {
 
   // Search + Filters state
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
   const [subject, setSubject] = useState("");
   const [location, setLocation] = useState("");
 
@@ -33,11 +32,10 @@ const AllScholarships = () => {
       item.universityName.toLowerCase().includes(search.toLowerCase()) ||
       item.degree.toLowerCase().includes(search.toLowerCase());
 
-    const matchCategory = category ? item.category === category : true;
     const matchSubject = subject ? item.subject === subject : true;
     const matchLocation = location ? item.location === location : true;
 
-    return matchSearch && matchCategory && matchSubject && matchLocation;
+    return matchSearch && matchSubject && matchLocation;
   });
 
   return (
@@ -59,19 +57,7 @@ const AllScholarships = () => {
         </div>
 
         {/* ---------------- Filters ---------------- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto mb-10">
-          {/* category filter */}
-          <select
-            className="p-3 border rounded-lg shadow-sm"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">All Categories</option>
-            <option value="Fully Funded">Fully Funded</option>
-            <option value="Partially Funded">Partially Funded</option>
-            <option value="Self-Funded">Self-Funded</option>
-          </select>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto mb-10">
           {/* subject filter */}
           <select
             className="p-3 border rounded-lg shadow-sm"
@@ -99,6 +85,7 @@ const AllScholarships = () => {
             <option value="Germany">Germany</option>
             <option value="Europe">Europe</option>
             <option value="Australia">Australia</option>
+            <option value="Japan">Japan</option>
           </select>
         </div>
 
