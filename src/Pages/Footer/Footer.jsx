@@ -5,16 +5,13 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white py-14 mt-16 border-t border-gray-700">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
-
-        {/* Left: Brand Info */}
         <div>
-          <h2 className="text-3xl font-bold tracking-wide mb-3">MyBrand</h2>
+          <h2 className="text-3xl font-bold tracking-wide mb-3">ScholarStream</h2>
           <p className="text-gray-400 leading-relaxed text-sm max-w-xs">
-            Crafting modern web experiences with passion, precision, and performance.
+            ScholarStream is a platform that connects students with financial assistance opportunities.
           </p>
         </div>
 
-        {/* Middle: Footer Navigation */}
         <div className="flex flex-col md:flex-row md:justify-center gap-10">
           <div>
             <h3 className="text-lg font-semibold mb-3">Company</h3>
@@ -49,7 +46,7 @@ export default function Footer() {
 
       {/* Bottom Section */}
       <div className="border-t border-gray-700 mt-10 pt-6 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} MyBrand — All Rights Reserved.
+        © {new Date().getFullYear()} ScholarStream — All Rights Reserved.
       </div>
     </footer>
   );

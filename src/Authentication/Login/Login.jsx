@@ -2,15 +2,17 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const [showPass, setShowPass] = useState(false);
+  const [error, setError] = useState("");
+
   const axiosInstance = useAxios();
   const navigate = useNavigate();
-  const location = useLocation();
   const { signIn, googleSignIn } = useAuth();
 
   const {
@@ -22,29 +24,29 @@ export default function Login() {
   const handleLogin = async (data) => {
     try {
       await signIn(data.email, data.password);
-      navigate(location?.state || "/");
+      navigate("/");
+      toast.success("Login Success");
     } catch (err) {
-      console.error(err);
+      setError(err.message.split("(")[1].split(")")[0]);
     }
   };
 
-  const handleGoogle = async () => {
+  const handleGoogle = () => {
     try {
       if (!googleSignIn) return;
 
-      const res = await googleSignIn();
-
-      const userInfo = {
-        email: res.user.email,
-        name: res.user.displayName,
-        photoURL: res.user.photoURL,
-      };
-
-      await axiosInstance.post("/users", userInfo);
-
-      navigate(location?.state || "/");
+      googleSignIn().then((res) => {
+        const userInfo = {
+          email: res.user.email,
+          name: res.user.displayName,
+          photoURL: res.user.photoURL,
+        };
+        axiosInstance.post("/users", userInfo);
+        navigate("/");
+        toast.success("Google Sign In Success");
+      });
     } catch (err) {
-      console.error(err);
+      setError(err.message.split("(")[1].split(")")[0]);
     }
   };
 
@@ -103,6 +105,10 @@ export default function Login() {
               <p className="text-red-500 text-sm mb-2">
                 {errors.password.message}
               </p>
+            )}
+
+            {error && (
+              <p className="text-red-500 text-sm -mt-3 mb-3">{error}</p>
             )}
 
             <div className="text-xs py-2">

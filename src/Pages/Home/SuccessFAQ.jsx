@@ -1,78 +1,72 @@
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import Container from "../../Shared/Container";
 
-const SuccessFAQ = () => {
+const FAQ = () => {
   const faqs = [
+    {
+      question: "What scholarships are available?",
+      answer:
+        "We offer merit-based, need-based, and special program scholarships to support students in various fields of study.",
+    },
     {
       question: "How can I apply for a scholarship?",
       answer:
-        "You can apply through our platform by filling out the online application form and submitting the required documents.",
+        "You can apply through our online portal by filling out the application form and submitting the required documents.",
     },
     {
-      question: "Are there any eligibility criteria?",
+      question: "What is the eligibility criteria?",
       answer:
-        "Yes, each scholarship has its own eligibility criteria. Please check the details before applying.",
+        "Eligibility varies per scholarship program, but generally it includes academic performance, financial need, and extracurricular involvement.",
     },
     {
-      question: "Is there any application fee?",
+      question: "When will I know if I am selected?",
       answer:
-        "Most scholarships are free to apply. Some may have nominal fees.",
+        "Successful applicants are notified via email within 4-6 weeks after the application deadline.",
     },
   ];
 
   const [openIndex, setOpenIndex] = useState(null);
+  const contentRefs = useRef([]);
 
   const toggleFAQ = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-          Success Stories / FAQ
-        </h2>
-
-        <div className="grid md:grid-cols-2 gap-12">
-          <div className="bg-white p-8 rounded-2xl shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4">Success Story</h3>
-            <p className="text-gray-600 mb-4">
-              Meet Sarah, who received a full scholarship for her Masters in
-              Computer Science. With our platform, she applied easily and got
-              accepted in a top-ranked university.
-            </p>
-            <p className="text-gray-600">
-              Our platform has helped hundreds of students like Sarah to achieve
-              their dreams abroad.
-            </p>
-          </div>
-
-          <div className="bg-white p-8 rounded-2xl shadow-lg">
-            <h3 className="text-2xl font-semibold mb-4">
-              Frequently Asked Questions
-            </h3>
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <div key={index} className="border rounded-xl overflow-hidden">
-                  <button
-                    onClick={() => toggleFAQ(index)}
-                    className="w-full text-left p-4 bg-blue-600 text-white font-semibold flex justify-between items-center"
-                  >
-                    {faq.question}
-                    <span>{openIndex === index ? "-" : "+"}</span>
-                  </button>
-                  {openIndex === index && (
-                    <div className="p-4 bg-gray-50 text-gray-700">
-                      {faq.answer}
-                    </div>
-                  )}
-                </div>
-              ))}
+    <Container>
+      <h2 className="text-3xl font-bold text-center mb-8 py-10">
+        Frequently Asked Questions
+      </h2>
+      <div className="space-y-4">
+        {faqs.map((faq, index) => (
+          <div
+            key={index}
+            className="border rounded-lg overflow-hidden shadow-md"
+          >
+            <button
+              className="w-full text-left p-4 bg-gray-100 hover:bg-gray-200 flex justify-between items-center"
+              onClick={() => toggleFAQ(index)}
+            >
+              <span className="font-medium">{faq.question}</span>
+              <span className="text-xl">{openIndex === index ? "-" : "+"}</span>
+            </button>
+            <div
+              ref={(el) => (contentRefs.current[index] = el)}
+              className={`transition-all duration-500 ease-in-out overflow-hidden`}
+              style={{
+                maxHeight:
+                  openIndex === index
+                    ? `${contentRefs.current[index]?.scrollHeight}px`
+                    : "0px",
+              }}
+            >
+              <div className="p-4 bg-white border-t">{faq.answer}</div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
-    </section>
+    </Container>
   );
 };
 
-export default SuccessFAQ;
+export default FAQ;

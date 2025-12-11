@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxios from "../../Hooks/useAxios";
 import { Link } from "react-router";
+import Container from "../../Shared/Container";
 
 const Topscallership = () => {
   const axiosInstance = useAxios();
@@ -22,12 +23,13 @@ const Topscallership = () => {
   if (isError) return <p>Error: {error?.message}</p>;
 
   return (
-    <div className="max-w-screen-2xl mx-auto px-4">
+    <Container>
+    <div className="max-w-screen-4xl mx-auto">
       <h1 className="text-3xl font-bold py-6 text-center">Top Scholarships</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
         {topScholarships?.map((scholar) => (
           <div
-            key={scholar.id || scholar.scholarshipName}
+            key={scholar._id}
             className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
           >
             <div className="relative overflow-hidden">
@@ -38,14 +40,14 @@ const Topscallership = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-3">
                 <span className="text-white font-semibold text-sm md:text-base drop-shadow-md">
-                  Rank: {scholar.worldRank || "-"}
+                  Rank: {scholar.universityWorldRank || "-"}
                 </span>
               </div>
             </div>
             <div className="p-5 flex-1 flex flex-col justify-between">
               <div>
                 <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                  {scholar.scholarshipName}
+                  {scholar.universityName}
                 </h2>
                 <p className="text-sm text-gray-500 mb-1">
                   <span className="font-semibold">Category:</span>{" "}
@@ -61,7 +63,7 @@ const Topscallership = () => {
                 </p>
               </div>
               <Link
-                to={`/scholarship/${scholar.id}`}
+                to={`/scholarship/${scholar._id}`}
                 className="mt-4 w-full text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-2 px-4 rounded-xl hover:scale-105 hover:shadow-lg transition-transform duration-300"
               >
                 View Details
@@ -71,6 +73,7 @@ const Topscallership = () => {
         ))}
       </div>
     </div>
+    </Container>
   );
 };
 

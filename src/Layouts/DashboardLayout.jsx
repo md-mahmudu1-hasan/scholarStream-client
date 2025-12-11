@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   FiMenu,
   FiX,
   FiHome,
   FiUser,
-  FiSettings,
   FiLogOut,
   FiBell,
 } from "react-icons/fi";
-import { Outlet, Link, Navigate, useNavigate } from "react-router";
+import { Outlet, Link, useNavigate } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
+import { IoIosAddCircle } from "react-icons/io";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
@@ -64,7 +64,7 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/profile"
+                  to="/dashboard/my-profile"
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
                   <FiUser /> Profile
@@ -72,10 +72,10 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/settings"
+                  to="/dashboard/add-scolership"
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
-                  <FiSettings /> Settings
+                  <IoIosAddCircle /> Add Scholarship
                 </Link>
               </li>
             </ul>
@@ -124,7 +124,7 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/profile"
+                  to="/dashboard/my-profile"
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
@@ -133,11 +133,11 @@ const DashboardLayout = () => {
               </li>
               <li>
                 <Link
-                  to="/settings"
+                  to="/dashboard/add-scolership"
                   onClick={() => setOpen(false)}
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
-                  <FiSettings /> Settings
+                  <IoIosAddCircle /> Add Scholarship
                 </Link>
               </li>
             </ul>

@@ -1,30 +1,30 @@
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
-import { Link, Links, NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import Container from "../../Shared/Container";
 import "./Navber.css";
+import useAuth from "../../Hooks/useAuth";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { user, SignOut } = useAuth();
 
   const handleMenuClick = () => {
-    setIsOpen(false);
     setMobileOpen(false);
-    setOpenDropdown(null);
+    setDropdownOpen(false);
+  };
+
+  const handleLogout = () => {
+    SignOut();
+    handleMenuClick();
   };
 
   return (
     <Container>
       <nav
-        className="  w-full 
-  px-5 
-  bg-linear-to-r from-white to-gray-200
-  shadow-sm 
-  fixed top-0 left-0 
-  z-50 
-  transition-all duration-300"
+        className="w-full px-12 bg-linear-to-r from-white/70 to-gray-200/70
+        shadow-sm fixed top-0 left-0 z-50 transition-all duration-300"
       >
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           {/* Logo */}
@@ -39,7 +39,7 @@ export default function Navbar() {
             <NavLink
               to="/"
               onClick={handleMenuClick}
-              className="hover:text-blue-700 cursor-pointer transition"
+              className="hover:text-blue-700 transition"
             >
               Home
             </NavLink>
@@ -47,31 +47,70 @@ export default function Navbar() {
             <NavLink
               to="/all-scholarships"
               onClick={handleMenuClick}
-              className="hover:text-blue-700 cursor-pointer transition"
+              className="hover:text-blue-700 transition"
             >
               All Scholarships
             </NavLink>
-
-            <Link
-              to="/login"
+                        <NavLink
+              to="/payment"
               onClick={handleMenuClick}
-              className="text-blue-700 font-semibold cursor-pointer hover:opacity-80 transition"
+              className="hover:text-blue-700 transition"
             >
-              LOG IN
-            </Link>
+              Payment
+            </NavLink>
 
-            <li>
-              <Link
-                to="/signup"
-                onClick={handleMenuClick}
-                className="bg-green-700 hover:bg-green-800 transition text-white px-5 py-2 rounded-full"
-              >
-                SIGN UP
-              </Link>
-            </li>
-          </ul>
+            {/* If User Logged In → Show Profile + Dropdown */}
+            {user ? (
+              <div className="relative">
+                <img
+                  src={user?.photoURL}
+                  alt="User"
+                  referrerPolicy="no-referrer"
+                  className="w-10 h-10 rounded-full border cursor-pointer"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                />
 
-          {/* Mobile Menu Button */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border">
+                    <Link
+                      to="/dashboard"
+                      className="block px-4 py-2 hover:bg-gray-100"
+                      onClick={handleMenuClick}
+                    >
+                      Dashboard
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  onClick={handleMenuClick}
+                  className="text-blue-700 font-semibold hover:opacity-80 transition"
+                >
+                  LOG IN
+                </Link>
+
+                <li>
+                  <Link
+                    to="/signup"
+                    onClick={handleMenuClick}
+                    className="bg-green-700 hover:bg-green-800 transition text-white px-5 py-2 rounded-full"
+                  >
+                    SIGN UP
+                  </Link>
+                </li>
+              </>
+            )}
+          </ul> 
           <button
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -79,45 +118,63 @@ export default function Navbar() {
             {mobileOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
         </div>
-
-        {/* Mobile Menu */}
         <div
           className={`md:hidden bg-white shadow-lg overflow-hidden transition-all duration-300 ${
             mobileOpen ? "max-h-[500px] py-4" : "max-h-0"
           }`}
         >
           <ul className="flex flex-col space-y-4 px-6">
-            <Link
-              to="/"
-              onClick={handleMenuClick}
-              className="font-medium cursor-pointer"
-            >
+            <Link to="/" onClick={handleMenuClick} className="font-medium">
               Home
             </Link>
 
             <Link
               to="/all-scholarships"
               onClick={handleMenuClick}
-              className="font-medium cursor-pointer"
+              className="font-medium"
             >
               All Scholarships
             </Link>
 
-            <Link
-              to="/login"
-              onClick={handleMenuClick}
-              className="text-blue-700 font-semibold cursor-pointer"
-            >
-              LOG IN
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  onClick={handleMenuClick}
+                  className="font-medium"
+                >
+                  Dashboard
+                </Link>
 
-            <Link
-              to="/signup"
-              onClick={handleMenuClick}
-              className="w-full bg-green-700 text-white px-2 p-2 rounded-full"
-            >
-              SIGN UP
-            </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    handleMenuClick();
+                  }}
+                  className="text-left font-medium text-red-600"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  onClick={handleMenuClick}
+                  className="text-blue-700 font-semibold"
+                >
+                  LOG IN
+                </Link>
+
+                <Link
+                  to="/signup"
+                  onClick={handleMenuClick}
+                  className="w-full bg-green-700 text-white px-2 p-2 rounded-full text-center"
+                >
+                  SIGN UP
+                </Link>
+              </>
+            )}
           </ul>
         </div>
       </nav>

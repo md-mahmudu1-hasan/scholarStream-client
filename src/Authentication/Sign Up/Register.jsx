@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from "react-hook-form";
@@ -7,12 +7,14 @@ import { auth } from "../../Utilities/firebase.init";
 import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
+import toast from "react-hot-toast";
 
 export default function Signup() {
   const [showPass, setShowPass] = useState(false);
+  const [error, seterror] = useState("");
   const axiosInstance = useAxios();
   const navigate = useNavigate();
-  const { createUser, googleSignIn } = useAuth();
+  const { createUser, googleSignIn, setUser } = useAuth();
 
   const {
     register,
@@ -28,7 +30,10 @@ export default function Signup() {
       if (!createUser) return;
 
       // create user
-      const result = await createUser(email, password);
+      await createUser(email, password).then((res) => {
+        setUser({ ...res.user, displayName: name, photoURL: photoURL });
+        toast.success("User Created Successfully");
+      });
 
       // update profile
       if (auth.currentUser) {
@@ -48,29 +53,40 @@ export default function Signup() {
       reset();
       navigate("/");
     } catch (err) {
-      console.error(err);
+      seterror(err.message.split("(")[1].split(")")[0]);
     }
   };
 
-  const handleGoogle = async () => {
+  const handleGoogle = () => {
     try {
       if (!googleSignIn) return;
 
-      const res = await googleSignIn();
-
-      const userInfo = {
-        email: res.user.email,
-        name: res.user.displayName,
-        photoURL: res.user.photoURL,
-      };
-
-      await axiosInstance.post("/users", userInfo);
-
-      navigate("/");
-    } catch (err) {
-      console.error(err);
-    }
+      googleSignIn().then((res) => {
+        const userInfo = {
+          email: res.user.email,
+          name: res.user.displayName,
+          photoURL: res.user.photoURL,
+        };
+        axiosInstance.post("/users", userInfo);
+        toast.success("Google Sign In Success");
+        navigate("/");
+      });
+    } catch (err) {}
   };
+
+  useEffect(() => {
+    if (error) {
+      if (error === "auth/email-already-in-use") {
+        toast.error("This email is already registered.");
+      } else if (error === "auth/invalid-email") {
+        toast.error("Invalid email address.");
+      } else if (error === "auth/weak-password") {
+        toast.error("Password is too weak.");
+      } else {
+        toast.error(error);
+      }
+    }
+  }, [error]);
 
   return (
     <div className="min-h-screen mt-17 flex items-center justify-center bg-gradient-to-br from-[#0d1224] to-[#0d1b42] px-4">
@@ -172,6 +188,7 @@ export default function Signup() {
               {errors.password.message}
             </p>
           )}
+          {error && <p className="text-red-500 text-sm -mt-3 mb-3">{error}</p>}
 
           <button
             type="submit"
