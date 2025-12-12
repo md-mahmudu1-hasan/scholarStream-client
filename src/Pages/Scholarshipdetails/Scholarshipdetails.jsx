@@ -34,12 +34,15 @@ export default function ScholarshipDetails() {
       ApplicantName: user?.displayName,
       ApplicantEmail: user?.email,
       scholarshipId: id,
+      ScholarshipName: scholarship.scholarshipName,
       universityName: scholarship.universityName,
       universityAddress: scholarship.location,
       feedback: "No feedback yet",
       subjectCategory: scholarship.subjectCategory,
       applicationFees: scholarship.applicationFees,
       applicationStatus: "Pending",
+      subject: scholarship.subject,
+      category: scholarship.category,
     };
 
     try {

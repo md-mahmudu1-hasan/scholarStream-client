@@ -13,6 +13,7 @@ import AddScholarshipForm from "../Pages/Add Scolership/add-scolership";
 import ManageScholarships from "../Pages/Manage Scholarship/ManageScholarship";
 import ManageUsers from "../Pages/Manage Users/ManageUsers";
 import ManageAppliedApplications from "../Pages/Manage Applications/ManageAppliedApplications";
+import MyApplications from "../Pages/My Applications/MyApplications";
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
       {
         path:"/dashboard/manage-applications",
         element:<ManageAppliedApplications></ManageAppliedApplications>
+      },
+      {
+        path:"/dashboard/my-applications",
+        element:<MyApplications></MyApplications>
       }
     ],
   },

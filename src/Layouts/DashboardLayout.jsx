@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdManageHistory } from "react-icons/md";
 import { FaRegNewspaper, FaUsers } from "react-icons/fa";
+import { IoNewspaperOutline } from "react-icons/io5";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
@@ -97,6 +98,14 @@ const DashboardLayout = () => {
                   <FaRegNewspaper /> Manage Applications
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/dashboard/my-applications"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <IoNewspaperOutline /> My Applications
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -184,6 +193,15 @@ const DashboardLayout = () => {
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
                   <FaRegNewspaper /> Manage Applications
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={() => setOpen(false)}
+                  to="/dashboard/my-applications"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <IoNewspaperOutline /> My Applications
                 </Link>
               </li>
             </ul>
