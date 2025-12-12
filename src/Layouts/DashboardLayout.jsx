@@ -1,16 +1,11 @@
 import { useState } from "react";
-import {
-  FiMenu,
-  FiX,
-  FiHome,
-  FiUser,
-  FiLogOut,
-  FiBell,
-} from "react-icons/fi";
+import { FiMenu, FiX, FiHome, FiUser, FiLogOut, FiBell } from "react-icons/fi";
 import { Outlet, Link, useNavigate } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
+import { MdManageHistory } from "react-icons/md";
+import { FaUsers } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
@@ -20,9 +15,9 @@ const DashboardLayout = () => {
 
   const handleLogout = () => {
     SignOut().then(() => {
-        navigate("/")
-      toast.success("Logout successfully")
-    })
+      navigate("/");
+      toast.success("Logout successfully");
+    });
   };
 
   return (
@@ -76,6 +71,22 @@ const DashboardLayout = () => {
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
                   <IoIosAddCircle /> Add Scholarship
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/manage-scolership"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <MdManageHistory /> Manage Scholarship
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/manage-users"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <FaUsers /> Manage Users
                 </Link>
               </li>
             </ul>
@@ -138,6 +149,24 @@ const DashboardLayout = () => {
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
                   <IoIosAddCircle /> Add Scholarship
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/manage-scolership"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <MdManageHistory /> Manage Scholarship
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/manage-users"
+                  onClick={() => setOpen(false)}
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <FaUsers /> Manage Users
                 </Link>
               </li>
             </ul>

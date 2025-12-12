@@ -10,6 +10,8 @@ import Checkout from "../Pages/Payment/Payment";
 import ScholarshipDetails from "../Pages/Scholarshipdetails/Scholarshipdetails";
 import MyProfile from "../Pages/My Profile/MyProfile";
 import AddScholarshipForm from "../Pages/Add Scolership/add-scolership";
+import ManageScholarships from "../Pages/Manage Scholarship/ManageScholarship";
+import ManageUsers from "../Pages/Manage Users/ManageUsers";
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
            {
             path:"/dashboard/add-scolership",
             element:<AddScholarshipForm></AddScholarshipForm>
+           },
+           {
+            path:"/dashboard/manage-scolership",
+            element:<ManageScholarships></ManageScholarships>
+           },
+           {
+            path:"/dashboard/manage-users",
+            element:<ManageUsers></ManageUsers>
            }
         ]
     }

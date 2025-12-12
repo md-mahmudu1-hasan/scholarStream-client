@@ -13,7 +13,7 @@ const AllScholarships = () => {
   const [location, setLocation] = useState("");
 
   const fetchScholarships = async () => {
-    const response = await axiosInstance.get("/scolership");
+    const response = await axiosInstance.get("/scholarship");
     return response.data;
   };
 
