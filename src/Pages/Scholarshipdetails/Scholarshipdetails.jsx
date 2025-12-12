@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router";
 import { FaStar } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
+import useAuth from "../../Hooks/useAuth";
 
 export default function ScholarshipDetails() {
   const { id } = useParams();
@@ -10,6 +11,8 @@ export default function ScholarshipDetails() {
   const [reviews, setReviews] = useState([]);
   const axiosInstance = useAxios();
   const navigate = useNavigate();
+
+  const { user } = useAuth();
 
   useEffect(() => {
     axiosInstance
@@ -28,11 +31,13 @@ export default function ScholarshipDetails() {
   // Apply button handler
   const handleApply = async () => {
     const applicationData = {
+      ApplicantName: user?.displayName,
+      ApplicantEmail: user?.email,
       scholarshipId: id,
       universityName: scholarship.universityName,
       universityAddress: scholarship.location,
       feedback: "No feedback yet",
-      subjectCategory: scholarship.subjectCategory, 
+      subjectCategory: scholarship.subjectCategory,
       applicationFees: scholarship.applicationFees,
       applicationStatus: "Pending",
     };

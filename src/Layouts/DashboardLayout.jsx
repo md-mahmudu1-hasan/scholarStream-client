@@ -5,7 +5,7 @@ import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
 import { MdManageHistory } from "react-icons/md";
-import { FaUsers } from "react-icons/fa";
+import { FaRegNewspaper, FaUsers } from "react-icons/fa";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
@@ -89,6 +89,14 @@ const DashboardLayout = () => {
                   <FaUsers /> Manage Users
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/dashboard/manage-applications"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <FaRegNewspaper /> Manage Applications
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -167,6 +175,15 @@ const DashboardLayout = () => {
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
                   <FaUsers /> Manage Users
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={() => setOpen(false)}
+                  to="/dashboard/manage-applications"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <FaRegNewspaper /> Manage Applications
                 </Link>
               </li>
             </ul>
