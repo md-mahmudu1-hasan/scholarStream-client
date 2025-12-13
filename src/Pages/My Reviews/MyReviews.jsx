@@ -103,7 +103,7 @@ const MyReviews = () => {
                 <td className="border px-4 py-2 text-center space-x-2">
                   <button
                     onClick={() => handleEdit(review)}
-                    className="px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded"
+                    className="px-3 my-2 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded"
                   >
                     Edit
                   </button>

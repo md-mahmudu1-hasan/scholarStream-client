@@ -60,6 +60,7 @@ const MyApplications = () => {
               <th className="p-3 border">Subject</th>
               <th className="p-3 border">Category</th>
               <th className="p-3 border">Application Fees</th>
+              <th className="p-3 border">Payment Status</th>
               <th className="p-3 border">Status</th>
               <th className="p-3 border">Actions</th>
             </tr>
@@ -76,6 +77,9 @@ const MyApplications = () => {
                 <td className="p-3 border">{app.subject}</td>
                 <td className="p-3 border">{app.category}</td>
                 <td className="p-3 border">${app.applicationFees}</td>
+                <td className="p-3 border capitalize">
+                  {app.paymentStatus}
+                </td>
                 <td className="p-3 border capitalize">
                   {app.applicationStatus}
                 </td>
@@ -104,7 +108,7 @@ const MyApplications = () => {
                     {app.applicationStatus === "Pending" &&
                       app.paymentStatus === "Unpaid" && (
                         <Link
-                          to={`/payment/${app.scholarshipId}`}
+                          to={`/payment/${app._id}`}
                           className="bg-green-600 hover:bg-green-900 text-white px-4 py-1 rounded w-full"
                         >
                           Pay

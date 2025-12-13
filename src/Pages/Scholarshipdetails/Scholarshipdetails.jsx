@@ -46,9 +46,11 @@ export default function ScholarshipDetails() {
     };
 
     try {
-      await axiosInstance.post("/applications", applicationData);
-      toast.success("Application submitted successfull. Now do Payment");
-      navigate(`/payment/${id}`);
+      await axiosInstance.post("/applications", applicationData).then((res) => {
+        const applicationId = res.data.insertedId;
+        navigate(`/payment/${applicationId}`);
+        toast.success("Application submitted successfull. Now do Payment");
+      });
     } catch (error) {
       toast.error("Error submitting application");
     }

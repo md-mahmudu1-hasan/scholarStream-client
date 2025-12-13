@@ -15,6 +15,8 @@ import ManageUsers from "../Pages/Manage Users/ManageUsers";
 import ManageAppliedApplications from "../Pages/Manage Applications/ManageAppliedApplications";
 import MyApplications from "../Pages/My Applications/MyApplications";
 import MyReviews from "../Pages/My Reviews/MyReviews";
+import PaymentSuccess from "../Pages/Payment Success/PaymentSuccess";
+import PaymentCanceled from "../Pages/PaymentCanceled/PaymentCanceled";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ export const router = createBrowserRouter([
       {
         path: "payment/:id",
         element: <Checkout></Checkout>,
+      },
+      {
+        path:"/payment-success",
+        element:<PaymentSuccess></PaymentSuccess>
+      },
+      {
+        path:"/payment-canceled",
+        element:<PaymentCanceled></PaymentCanceled>
       },
       {
         path: "scholarship/:id",
