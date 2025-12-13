@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import useAxios from "../../Hooks/useAxios";
 import { Link } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const MyApplications = () => {
   const axiosInstance = useAxios();
@@ -10,7 +11,10 @@ const MyApplications = () => {
   const [selectedApp, setSelectedApp] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [showReview, setShowReview] = useState(false);
-  const [reviewData, setReviewData] = useState({ ratingPoint: 0, reviewComment: "" });
+  const [reviewData, setReviewData] = useState({
+    ratingPoint: 0,
+    reviewComment: "",
+  });
 
   useEffect(() => {
     if (user?.email) {
@@ -22,8 +26,33 @@ const MyApplications = () => {
 
   // Delete Application
   const handleDelete = (id) => {
-    axiosInstance.delete(`/applications/${id}`).then(() => {
-      setApplications(applications.filter((a) => a._id !== id));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axiosInstance.delete(`/applications/${id}`);
+          setApplications(applications.filter((a) => a._id !== id));
+
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your application has been deleted.",
+            icon: "success",
+          });
+        } catch (error) {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to delete the application.",
+            icon: "error",
+          });
+        }
+      }
     });
   };
 
@@ -77,9 +106,7 @@ const MyApplications = () => {
                 <td className="p-3 border">{app.subject}</td>
                 <td className="p-3 border">{app.category}</td>
                 <td className="p-3 border">${app.applicationFees}</td>
-                <td className="p-3 border capitalize">
-                  {app.paymentStatus}
-                </td>
+                <td className="p-3 border capitalize">{app.paymentStatus}</td>
                 <td className="p-3 border capitalize">
                   {app.applicationStatus}
                 </td>

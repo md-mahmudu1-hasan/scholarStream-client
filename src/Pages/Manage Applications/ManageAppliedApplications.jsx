@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 export default function ManageAppliedApplications() {
   const axiosInstance = useAxios();
@@ -31,15 +32,31 @@ export default function ManageAppliedApplications() {
 
   // Cancel Application
   const handleCancel = async (id) => {
-    await axiosInstance.patch(`/applications/${id}`, {
-      applicationStatus: "Rejected",
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Canceled it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosInstance.patch(`/applications/${id}`, {
+          applicationStatus: "Rejected",
+        });
+        setApplications((prev) =>
+          prev.map((app) =>
+            app._id === id ? { ...app, applicationStatus: "Rejected" } : app
+          )
+        );
+        Swal.fire({
+          title: "Canceled!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
     });
-
-    setApplications((prev) =>
-      prev.map((app) =>
-        app._id === id ? { ...app, applicationStatus: "Rejected" } : app
-      )
-    );
   };
 
   // Submit Feedback

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxios from "../../Hooks/useAxios";
+import Swal from "sweetalert2";
 
 const ManageUsers = () => {
   const axiosInstance = useAxios();
@@ -12,7 +13,6 @@ const ManageUsers = () => {
       setUsers(res.data);
     });
   }, []);
-
 
   const filteredUsers =
     filterRole === "All"
@@ -31,9 +31,26 @@ const ManageUsers = () => {
   };
 
   const handleDelete = (id) => {
-    axiosInstance.delete(`/users/${id}`).then((res) => {
-      toast.success("User deleted");
-      setUsers(users.filter((u) => u._id !== id));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosInstance.delete(`/users/${id}`).then((res) => {
+          toast.success("User deleted");
+          setUsers(users.filter((u) => u._id !== id));
+        });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
     });
   };
 
@@ -66,7 +83,7 @@ const ManageUsers = () => {
               <th className="border px-4 py-2 text-center">Change Role</th>
               <th className="border px-4 py-2 text-center">Delete</th>
             </tr>
-          </thead>  
+          </thead>
 
           <tbody>
             {filteredUsers.map((user, index) => (
@@ -80,9 +97,7 @@ const ManageUsers = () => {
                   <select
                     className="border px-3 py-2 rounded"
                     value={user.role}
-                    onChange={(e) =>
-                      handleRoleChange(user._id, e.target.value)
-                    }
+                    onChange={(e) => handleRoleChange(user._id, e.target.value)}
                   >
                     <option value="student">Student</option>
                     <option value="moderator">Moderator</option>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 const MyReviews = () => {
   const axiosInstance = useAxios();
@@ -20,22 +21,33 @@ const MyReviews = () => {
   }, [user, axiosInstance]);
 
   const handleDelete = async (id) => {
-    const previousReviews = [...reviews];
-    setReviews(reviews.filter((r) => r._id !== id));
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    });
 
-    try {
-      await axiosInstance
-        .delete(`/reviews/${id}`)
-        .then(() => {
-          toast.success("Review deleted successfully");
-        })
-        .catch(() => {
-          toast.error("Failed to delete review");
-          setReviews(previousReviews);
+    if (result.isConfirmed) {
+      const previousReviews = [...reviews];
+      setReviews(reviews.filter((r) => r._id !== id));
+
+      try {
+        await axiosInstance.delete(`/reviews/${id}`);
+        toast.success("Review deleted successfully");
+
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your review has been deleted.",
+          icon: "success",
         });
-    } catch (error) {
-      toast.error("Failed to delete review");
-      setReviews(previousReviews);
+      } catch (error) {
+        toast.error("Failed to delete review");
+        setReviews(previousReviews);
+      }
     }
   };
 

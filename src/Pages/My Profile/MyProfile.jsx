@@ -25,6 +25,7 @@ const MyProfile = () => {
   useEffect(() => {
     fetchProfile();
   }, []);
+  
 
   if (loading)
     return (
