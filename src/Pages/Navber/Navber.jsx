@@ -30,7 +30,7 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center space-x-1 cursor-pointer select-none">
             <Link to="/" className="text-blue-800 font-bold text-2xl">
-              ScholarStream
+              <img className="w-13 h-full object-cover" src="https://i.ibb.co.com/WvDXKbPf/Gemini-Generated-Image-t7ay06t7ay06t7ay-1.png" alt="" />
             </Link>
           </div>
 
