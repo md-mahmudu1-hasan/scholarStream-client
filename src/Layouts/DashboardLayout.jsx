@@ -4,7 +4,7 @@ import { Outlet, Link, useNavigate } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
-import { MdManageHistory } from "react-icons/md";
+import { MdManageHistory, MdOutlineReviews } from "react-icons/md";
 import { FaRegNewspaper, FaUsers } from "react-icons/fa";
 import { IoNewspaperOutline } from "react-icons/io5";
 
@@ -106,6 +106,14 @@ const DashboardLayout = () => {
                   <IoNewspaperOutline /> My Applications
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/dashboard/my-reviews"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <MdOutlineReviews /> My Reviews
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -202,6 +210,15 @@ const DashboardLayout = () => {
                   className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
                 >
                   <IoNewspaperOutline /> My Applications
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={() => setOpen(false)}
+                  to="/dashboard/my-reviews"
+                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                >
+                  <MdOutlineReviews /> My Reviews
                 </Link>
               </li>
             </ul>

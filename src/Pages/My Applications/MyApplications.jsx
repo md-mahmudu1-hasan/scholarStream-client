@@ -10,7 +10,7 @@ const MyApplications = () => {
   const [selectedApp, setSelectedApp] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [showReview, setShowReview] = useState(false);
-  const [reviewData, setReviewData] = useState({ rating: 0, comment: "" });
+  const [reviewData, setReviewData] = useState({ ratingPoint: 0, reviewComment: "" });
 
   useEffect(() => {
     if (user?.email) {
@@ -36,13 +36,13 @@ const MyApplications = () => {
         userName: user?.displayName,
         userEmail: user?.email,
         userImage: user?.photoURL,
-        ratingPoint: reviewData.rating,
-        reviewComment: reviewData.comment,
+        ratingPoint: reviewData.ratingPoint,
+        reviewComment: reviewData.reviewComment,
         reviewDate: new Date(),
       })
       .then(() => {
         setShowReview(false);
-        setReviewData({ rating: 0, comment: "" });
+        setReviewData({ ratingPoint: 0, reviewComment: "" });
       });
   };
 
@@ -187,18 +187,18 @@ const MyApplications = () => {
               type="number"
               min="1"
               max="5"
-              value={reviewData.rating}
+              value={reviewData.ratingPoint}
               onChange={(e) =>
-                setReviewData({ ...reviewData, rating: e.target.value })
+                setReviewData({ ...reviewData, ratingPoint: e.target.value })
               }
               className="w-full border rounded px-3 py-2 mt-1"
             />
 
             <label className="block font-medium mt-3">Comment</label>
             <textarea
-              value={reviewData.comment}
+              value={reviewData.reviewComment}
               onChange={(e) =>
-                setReviewData({ ...reviewData, comment: e.target.value })
+                setReviewData({ ...reviewData, reviewComment: e.target.value })
               }
               className="w-full border rounded px-3 py-2 mt-1"
             ></textarea>
