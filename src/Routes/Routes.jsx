@@ -17,6 +17,7 @@ import MyApplications from "../Pages/My Applications/MyApplications";
 import MyReviews from "../Pages/My Reviews/MyReviews";
 import PaymentSuccess from "../Pages/Payment Success/PaymentSuccess";
 import PaymentCanceled from "../Pages/PaymentCanceled/PaymentCanceled";
+import AllReviews from "../Pages/All reviews/AllReviews";
 
 export const router = createBrowserRouter([
   {
@@ -44,12 +45,12 @@ export const router = createBrowserRouter([
         element: <Checkout></Checkout>,
       },
       {
-        path:"/payment-success",
-        element:<PaymentSuccess></PaymentSuccess>
+        path: "/payment-success",
+        element: <PaymentSuccess></PaymentSuccess>,
       },
       {
-        path:"/payment-canceled",
-        element:<PaymentCanceled></PaymentCanceled>
+        path: "/payment-canceled",
+        element: <PaymentCanceled></PaymentCanceled>,
       },
       {
         path: "scholarship/:id",
@@ -86,17 +87,21 @@ export const router = createBrowserRouter([
         element: <ManageUsers></ManageUsers>,
       },
       {
-        path:"/dashboard/manage-applications",
-        element:<ManageAppliedApplications></ManageAppliedApplications>
+        path: "/dashboard/manage-applications",
+        element: <ManageAppliedApplications></ManageAppliedApplications>,
       },
       {
-        path:"/dashboard/my-applications",
-        element:<MyApplications></MyApplications>
+        path: "/dashboard/my-applications",
+        element: <MyApplications></MyApplications>,
       },
       {
-        path:"/dashboard/my-reviews",
-        element:<MyReviews></MyReviews>
-      }
+        path: "/dashboard/my-reviews",
+        element: <MyReviews></MyReviews>,
+      },
+      {
+        path: "/dashboard/all-reviews",
+        element: <AllReviews></AllReviews>,
+      },
     ],
   },
 ]);

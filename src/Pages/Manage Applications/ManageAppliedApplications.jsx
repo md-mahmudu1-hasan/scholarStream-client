@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 export default function ManageAppliedApplications() {
   const axiosInstance = useAxios();
@@ -70,6 +71,8 @@ export default function ManageAppliedApplications() {
         app._id === feedbackModal._id ? { ...app, feedback: feedbackText } : app
       )
     );
+
+    toast.success("Feedback Submitted");
 
     setFeedbackModal(null);
     setFeedbackText("");

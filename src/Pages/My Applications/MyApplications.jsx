@@ -3,6 +3,7 @@ import useAxios from "../../Hooks/useAxios";
 import { Link } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 
 const MyApplications = () => {
   const axiosInstance = useAxios();
@@ -72,6 +73,7 @@ const MyApplications = () => {
       .then(() => {
         setShowReview(false);
         setReviewData({ ratingPoint: 0, reviewComment: "" });
+        toast.success("Review Submitted!")
       });
   };
 
