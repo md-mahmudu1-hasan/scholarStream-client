@@ -18,6 +18,9 @@ import MyReviews from "../Pages/My Reviews/MyReviews";
 import PaymentSuccess from "../Pages/Payment Success/PaymentSuccess";
 import PaymentCanceled from "../Pages/PaymentCanceled/PaymentCanceled";
 import AllReviews from "../Pages/All reviews/AllReviews";
+import Forbidden from "../Pages/Forbidden/Forbidden";
+import AdminRoute from "../Authentication/AdminRoute/AdminRoute";
+import ModaretorRoute from "../Authentication/ModaretorRoute/ModaretorRoute";
 
 export const router = createBrowserRouter([
   {
@@ -60,6 +63,10 @@ export const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
+      {
+        path: "/forbidden",
+        element: <Forbidden></Forbidden>,
+      }
     ],
   },
   {
@@ -76,19 +83,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add-scolership",
-        element: <AddScholarshipForm></AddScholarshipForm>,
+        element:<AdminRoute><AddScholarshipForm></AddScholarshipForm></AdminRoute>,
       },
       {
         path: "/dashboard/manage-scolership",
-        element: <ManageScholarships></ManageScholarships>,
+        element:<AdminRoute><ManageScholarships></ManageScholarships></AdminRoute>,
       },
       {
         path: "/dashboard/manage-users",
-        element: <ManageUsers></ManageUsers>,
+        element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>,
       },
       {
         path: "/dashboard/manage-applications",
-        element: <ManageAppliedApplications></ManageAppliedApplications>,
+        element:<ModaretorRoute><ManageAppliedApplications></ManageAppliedApplications></ModaretorRoute>,
       },
       {
         path: "/dashboard/my-applications",
@@ -100,7 +107,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all-reviews",
-        element: <AllReviews></AllReviews>,
+        element:<ModaretorRoute><AllReviews></AllReviews></ModaretorRoute>,
       },
     ],
   },

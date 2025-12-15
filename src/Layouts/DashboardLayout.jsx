@@ -7,10 +7,12 @@ import { IoIosAddCircle } from "react-icons/io";
 import { MdManageHistory, MdOutlineReviews, MdReviews } from "react-icons/md";
 import { FaRegNewspaper, FaUsers } from "react-icons/fa";
 import { IoNewspaperOutline } from "react-icons/io5";
+import useRole from "../Hooks/useRole";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
   const { SignOut } = useAuth();
+  const { data } = useRole();
 
   const navigate = useNavigate();
 
@@ -66,62 +68,77 @@ const DashboardLayout = () => {
                   <FiUser /> Profile
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/dashboard/add-scolership"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <IoIosAddCircle /> Add Scholarship
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/manage-scolership"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <MdManageHistory /> Manage Scholarship
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/manage-users"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <FaUsers /> Manage Users
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/manage-applications"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <FaRegNewspaper /> Manage Applications
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/my-applications"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <IoNewspaperOutline /> My Applications
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/my-reviews"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <MdOutlineReviews /> My Reviews
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/all-reviews"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <MdReviews /> All Reviews
-                </Link>
-              </li>
+
+              {data?.role === "admin" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/add-scolership"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <IoIosAddCircle /> Add Scholarship
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/manage-scolership"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <MdManageHistory /> Manage Scholarship
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/manage-users"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <FaUsers /> Manage Users
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              {data?.role === "moderator" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/manage-applications"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <FaRegNewspaper /> Manage Applications
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/all-reviews"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <MdReviews /> All Reviews
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              {data?.role === "student" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/my-applications"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <IoNewspaperOutline /> My Applications
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/my-reviews"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <MdOutlineReviews /> My Reviews
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
 
@@ -134,6 +151,8 @@ const DashboardLayout = () => {
             </button>
           </div>
         </aside>
+
+        {/* Mobile */}
         {open && (
           <div
             className="fixed inset-0 bg-black/40 z-30 md:hidden"
@@ -175,69 +194,82 @@ const DashboardLayout = () => {
                   <FiUser /> Profile
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/dashboard/add-scolership"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <IoIosAddCircle /> Add Scholarship
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/manage-scolership"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <MdManageHistory /> Manage Scholarship
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/manage-users"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <FaUsers /> Manage Users
-                </Link>
-              </li>
-              <li>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/dashboard/manage-applications"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <FaRegNewspaper /> Manage Applications
-                </Link>
-              </li>
-              <li>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/dashboard/my-applications"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <IoNewspaperOutline /> My Applications
-                </Link>
-              </li>
-              <li>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/dashboard/my-reviews"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <MdOutlineReviews /> My Reviews
-                </Link>
-              </li>
-              <li>
-                <Link
-                  onClick={() => setOpen(false)}
-                  to="/dashboard/all-reviews"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <MdReviews /> All Reviews
-                </Link>
-              </li>
+              {data?.role === "admin" && (
+                <>
+                  <li>
+                    <Link
+                      to="/dashboard/add-scolership"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <IoIosAddCircle /> Add Scholarship
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/manage-scolership"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <MdManageHistory /> Manage Scholarship
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/dashboard/manage-users"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <FaUsers /> Manage Users
+                    </Link>
+                  </li>
+                </>
+              )}
+
+              {data?.role === "moderator" && (
+                <>
+                  <li>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      to="/dashboard/manage-applications"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <FaRegNewspaper /> Manage Applications
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      to="/dashboard/all-reviews"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <MdReviews /> All Reviews
+                    </Link>
+                  </li>
+                </>
+              )}
+              {data?.role === "student" && (
+                <>
+                  <li>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      to="/dashboard/my-applications"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <IoNewspaperOutline /> My Applications
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      onClick={() => setOpen(false)}
+                      to="/dashboard/my-reviews"
+                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
+                    >
+                      <MdOutlineReviews /> My Reviews
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </nav>
           <div className="p-4 border-t absolute bottom-0 w-full">

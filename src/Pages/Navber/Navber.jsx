@@ -8,7 +8,7 @@ import useAuth from "../../Hooks/useAuth";
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, SignOut } = useAuth();
+  const { user, SignOut , loading } = useAuth();
 
   const handleMenuClick = () => {
     setMobileOpen(false);
@@ -19,6 +19,10 @@ export default function Navbar() {
     SignOut();
     handleMenuClick();
   };
+
+  if(loading){
+    return <span>loading..........</span>
+  }
 
   return (
     <Container>
