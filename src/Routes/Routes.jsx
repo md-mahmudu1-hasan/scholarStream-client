@@ -21,12 +21,15 @@ import AllReviews from "../Pages/All reviews/AllReviews";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import AdminRoute from "../Authentication/AdminRoute/AdminRoute";
 import ModaretorRoute from "../Authentication/ModaretorRoute/ModaretorRoute";
-import Loader from "../Pages/Loader/Loader";
+import NotFound from "../Pages/404 page/NoData";
+import DashboardHome from "../Pages/Dashboardhome/DashboardHome";
+import ForgetPassword from "../Authentication/Login/Forgotpassword";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Mainmother></Mainmother>,
+    errorElement: <NotFound></NotFound>,
     children: [
       {
         index: true,
@@ -69,8 +72,12 @@ export const router = createBrowserRouter([
         element: <Forbidden></Forbidden>,
       },
       {
-        path: "loader",
-        element: <Loader></Loader>,
+        path: "forget-password",
+        element: <ForgetPassword></ForgetPassword>
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },
@@ -81,7 +88,12 @@ export const router = createBrowserRouter([
         <DashboardLayout></DashboardLayout>
       </PrivetRoute>
     ),
+    errorElement: <NotFound></NotFound>,
     children: [
+      {
+        index: true,
+        element: <DashboardHome></DashboardHome>,
+      },
       {
         path: "/dashboard/my-profile",
         element: <MyProfile></MyProfile>,
@@ -133,6 +145,10 @@ export const router = createBrowserRouter([
             <AllReviews></AllReviews>
           </ModaretorRoute>
         ),
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },

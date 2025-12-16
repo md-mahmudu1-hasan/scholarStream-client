@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
@@ -14,6 +14,8 @@ export default function Login() {
   const axiosInstance = useAxios();
   const navigate = useNavigate();
   const { signIn, googleSignIn } = useAuth();
+
+  const [email, setEmail] = useState("");
 
   const {
     register,
@@ -70,6 +72,7 @@ export default function Login() {
               type="email"
               placeholder="your@email.com"
               className="input input-bordered w-full mb-2"
+              onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -112,7 +115,13 @@ export default function Login() {
             )}
 
             <div className="text-xs py-2">
-              <a className="link link-hover">Forgot password?</a>
+              <Link
+                state={{ email }}
+                className="text-xs pl-1 text-right"
+                to="/forget-password"
+              >
+                Forgot Password?
+              </Link>
             </div>
 
             <button

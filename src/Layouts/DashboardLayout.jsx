@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { FiMenu, FiX, FiHome, FiUser, FiLogOut, FiBell } from "react-icons/fi";
-import { Outlet, Link, useNavigate } from "react-router";
+import { useState } from "react"; 
+import { FiMenu, FiX, FiUser, FiLogOut } from "react-icons/fi";
+import { Outlet, Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../Hooks/useAuth";
 import toast from "react-hot-toast";
 import { IoIosAddCircle } from "react-icons/io";
@@ -14,7 +14,6 @@ const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
   const { SignOut, loading } = useAuth();
   const { data, isLoading } = useRole();
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -24,81 +23,61 @@ const DashboardLayout = () => {
     });
   };
 
-  if (isLoading || loading) {
-    return <Loader></Loader>;
-  }
+  if (isLoading || loading) return <Loader />;
+
+  const sidebarLinkClass = ({ isActive }) =>
+    `flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 ${
+      isActive ? "bg-blue-100 text-blue-600 font-semibold" : "hover:bg-gray-100"
+    }`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
-      {/* ----------Navbar ---------- */}
-      <header className="w-full bg-white shadow-sm flex items-center justify-between px-4 py-3 fixed top-0 left-0 z-20 md:pl-72">
-        <div className="flex items-center gap-3">
+    <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* Navbar */}
+      <header className="fixed top-0 left-0 w-full bg-white shadow-md z-30 md:pl-72 flex items-center justify-between px-4 py-3">
+        <div className="flex items-center gap-4">
           <button
             onClick={() => setOpen(true)}
-            className="md:hidden p-2 bg-gray-100 rounded"
+            className="md:hidden p-2 bg-gray-100 rounded-lg hover:bg-gray-200 transition"
           >
-            <FiMenu size={20} />
+            <FiMenu size={22} />
           </button>
-          <h1 className="text-xl font-semibold">Dashboard</h1>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button className="p-2 rounded hover:bg-gray-100">
-            <FiBell size={20} />
-          </button>
-          <button className="p-2 rounded hover:bg-gray-100">
-            <FiUser size={20} />
-          </button>
+          <Link to="/">
+            <img
+              src="https://i.ibb.co/wNw5Qvvm/short.png"
+              alt="Logo"
+              className="h-10 object-contain"
+            />
+          </Link>
         </div>
       </header>
 
       <div className="flex flex-1 pt-16">
-        {/* ---------- Desktop Sidebar ---------- */}
-        <aside className="hidden md:flex md:flex-col md:w-64 bg-white shadow-md fixed left-0 top-0 bottom-0 pt-16">
-          <nav className="p-4 flex-1">
+        {/* Desktop Sidebar */}
+        <aside className="hidden md:flex md:flex-col md:w-64 bg-white shadow-lg fixed top-0 left-0 bottom-0 pt-16">
+          <nav className="flex-1 p-4">
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <FiHome /> Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/my-profile"
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
+                <NavLink to="/dashboard/my-profile" className={sidebarLinkClass}>
                   <FiUser /> Profile
-                </Link>
+                </NavLink>
               </li>
 
               {data?.role === "admin" && (
                 <>
                   <li>
-                    <Link
-                      to="/dashboard/add-scolership"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/add-scolership" className={sidebarLinkClass}>
                       <IoIosAddCircle /> Add Scholarship
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      to="/dashboard/manage-scolership"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/manage-scolership" className={sidebarLinkClass}>
                       <MdManageHistory /> Manage Scholarship
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      to="/dashboard/manage-users"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/manage-users" className={sidebarLinkClass}>
                       <FaUsers /> Manage Users
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -106,20 +85,14 @@ const DashboardLayout = () => {
               {data?.role === "moderator" && (
                 <>
                   <li>
-                    <Link
-                      to="/dashboard/manage-applications"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/manage-applications" className={sidebarLinkClass}>
                       <FaRegNewspaper /> Manage Applications
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      to="/dashboard/all-reviews"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/all-reviews" className={sidebarLinkClass}>
                       <MdReviews /> All Reviews
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -127,20 +100,14 @@ const DashboardLayout = () => {
               {data?.role === "student" && (
                 <>
                   <li>
-                    <Link
-                      to="/dashboard/my-applications"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/my-applications" className={sidebarLinkClass}>
                       <IoNewspaperOutline /> My Applications
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      to="/dashboard/my-reviews"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/my-reviews" className={sidebarLinkClass}>
                       <MdOutlineReviews /> My Reviews
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -150,83 +117,50 @@ const DashboardLayout = () => {
           <div className="p-4 border-t">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 w-full p-2 rounded hover:bg-gray-100"
+              className="flex items-center gap-2 w-full p-3 rounded-lg hover:bg-gray-100 transition text-red-500 font-medium"
             >
               <FiLogOut /> Logout
             </button>
           </div>
         </aside>
 
-        {/* Mobile */}
-        {open && (
-          <div
-            className="fixed inset-0 bg-black/40 z-30 md:hidden"
-            onClick={() => setOpen(false)}
-          ></div>
-        )}
+        {/* Mobile Sidebar */}
+        {open && <div className="fixed inset-0 bg-black/40 z-20 md:hidden" onClick={() => setOpen(false)}></div>}
         <div
-          className={`fixed top-0 left-0 h-full w-56 bg-white shadow-lg z-40 transform md:hidden transition-transform duration-300 ${
+          className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-30 transform md:hidden transition-transform duration-300 ${
             open ? "translate-x-0" : "-translate-x-full"
-          } pt-16`}
+          } pt-16 flex flex-col`}
         >
-          <div className="p-4 border-b flex justify-between items-center">
-            <h2 className="text-lg font-semibold">Menu</h2>
-            <button
-              onClick={() => setOpen(false)}
-              className="p-2 hover:bg-gray-100 rounded"
-            >
-              <FiX />
+          <div className="flex justify-between items-center p-4 border-b">
+            <h2 className="text-lg font-semibold text-gray-700">Menu</h2>
+            <button onClick={() => setOpen(false)} className="p-2 rounded-lg hover:bg-gray-100 transition">
+              <FiX size={22} />
             </button>
           </div>
-
-          <nav className="p-4">
+          <nav className="p-4 flex-1 overflow-y-auto">
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
-                  <FiHome /> Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/dashboard/my-profile"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                >
+                <NavLink to="/dashboard/my-profile" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                   <FiUser /> Profile
-                </Link>
+                </NavLink>
               </li>
+
               {data?.role === "admin" && (
                 <>
                   <li>
-                    <Link
-                      to="/dashboard/add-scolership"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/add-scolership" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <IoIosAddCircle /> Add Scholarship
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      to="/dashboard/manage-scolership"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/manage-scolership" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <MdManageHistory /> Manage Scholarship
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      to="/dashboard/manage-users"
-                      onClick={() => setOpen(false)}
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/manage-users" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <FaUsers /> Manage Users
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
@@ -234,61 +168,46 @@ const DashboardLayout = () => {
               {data?.role === "moderator" && (
                 <>
                   <li>
-                    <Link
-                      onClick={() => setOpen(false)}
-                      to="/dashboard/manage-applications"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/manage-applications" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <FaRegNewspaper /> Manage Applications
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      onClick={() => setOpen(false)}
-                      to="/dashboard/all-reviews"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/all-reviews" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <MdReviews /> All Reviews
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
+
               {data?.role === "student" && (
                 <>
                   <li>
-                    <Link
-                      onClick={() => setOpen(false)}
-                      to="/dashboard/my-applications"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/my-applications" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <IoNewspaperOutline /> My Applications
-                    </Link>
+                    </NavLink>
                   </li>
                   <li>
-                    <Link
-                      onClick={() => setOpen(false)}
-                      to="/dashboard/my-reviews"
-                      className="flex items-center gap-3 p-2 rounded hover:bg-gray-100"
-                    >
+                    <NavLink to="/dashboard/my-reviews" onClick={() => setOpen(false)} className={sidebarLinkClass}>
                       <MdOutlineReviews /> My Reviews
-                    </Link>
+                    </NavLink>
                   </li>
                 </>
               )}
             </ul>
           </nav>
-          <div className="p-4 border-t absolute bottom-0 w-full">
+          <div className="p-4 border-t">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 w-full p-2 rounded hover:bg-gray-100"
+              className="flex items-center gap-2 w-full p-3 rounded-lg hover:bg-gray-100 transition text-red-500 font-medium"
             >
               <FiLogOut /> Logout
             </button>
           </div>
         </div>
 
-        {/* ---------- Main Content ---------- */}
-        <main className="flex-1 md:ml-64 p-6">
+        {/* Main Content */}
+        <main className="flex-1 md:ml-64 p-6 bg-gray-50 min-h-screen">
           <Outlet />
         </main>
       </div>
