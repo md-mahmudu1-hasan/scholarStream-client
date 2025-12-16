@@ -27,7 +27,7 @@ const AddScholarshipForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axiosInstance.post("/scolership", formData).then((res) => {
+    axiosInstance.post("/scholarship", formData).then((res) => {
       toast.success("Scholarship added successfully");
 
       // Reset form fields properly
