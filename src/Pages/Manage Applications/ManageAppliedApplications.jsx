@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import Loader from "../Loader/Loader";
 
 export default function ManageAppliedApplications() {
   const axiosInstance = useAxios();
@@ -10,12 +11,23 @@ export default function ManageAppliedApplications() {
   const [selectedDetails, setSelectedDetails] = useState(null);
   const [feedbackModal, setFeedbackModal] = useState(null);
   const [feedbackText, setFeedbackText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // Fetch all applications
   useEffect(() => {
-    axiosInstance.get("/applications").then((res) => {
-      setApplications(res.data);
-    });
+    setLoading(true);
+
+    axiosInstance
+      .get("/applications")
+      .then((res) => {
+        setApplications(res.data);
+      })
+      .catch(() => {
+        toast.error("Failed to load applications");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   // Update status
@@ -77,6 +89,10 @@ export default function ManageAppliedApplications() {
     setFeedbackModal(null);
     setFeedbackText("");
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="max-w-7xl mx-auto p-6">

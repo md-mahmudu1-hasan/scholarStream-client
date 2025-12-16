@@ -4,11 +4,12 @@ import { Link, NavLink } from "react-router";
 import Container from "../../Shared/Container";
 import "./Navber.css";
 import useAuth from "../../Hooks/useAuth";
+import Loader from "../Loader/Loader";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user, SignOut , loading } = useAuth();
+  const { user, SignOut } = useAuth();
 
   const handleMenuClick = () => {
     setMobileOpen(false);
@@ -19,10 +20,6 @@ export default function Navbar() {
     SignOut();
     handleMenuClick();
   };
-
-  if(loading){
-    return <span>loading..........</span>
-  }
 
   return (
     <Container>

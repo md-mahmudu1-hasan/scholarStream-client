@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAxios from "../../Hooks/useAxios";
+import Loader from "../Loader/Loader";
 
 const AllReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -45,7 +46,7 @@ const AllReviews = () => {
   };
 
   if (loading) {
-    return <p className="text-center mt-10">Loading...</p>;
+    return <Loader></Loader>
   }
 
   return (

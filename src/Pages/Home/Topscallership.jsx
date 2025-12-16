@@ -3,6 +3,7 @@ import React from "react";
 import useAxios from "../../Hooks/useAxios";
 import { Link } from "react-router";
 import Container from "../../Shared/Container";
+import Loader from "../Loader/Loader";
 
 const Topscallership = () => {
   const axiosInstance = useAxios();
@@ -19,7 +20,7 @@ const Topscallership = () => {
 
   const topScholarships = data?.data?.slice(0, 6);
 
-  if (isLoading) return <p>Loading scholarships...</p>;
+  if (isLoading) return <Loader></Loader>
   if (isError) return <p>Error: {error?.message}</p>;
 
   return (

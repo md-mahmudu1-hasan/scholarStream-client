@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import useAuth from "../../Hooks/useAuth";
+import Loader from "../Loader/Loader";
 
 const MyProfile = () => {
   const [profile, setProfile] = useState(null);
@@ -25,14 +26,8 @@ const MyProfile = () => {
   useEffect(() => {
     fetchProfile();
   }, []);
-  
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-64">
-        <p className="text-gray-500 text-lg">Loading profile...</p>
-      </div>
-    );
+  if (loading) return <Loader></Loader>;
   if (error)
     return (
       <div className="flex justify-center items-center h-64">
@@ -74,9 +69,7 @@ const MyProfile = () => {
       </div>
 
       <div className="mt-6 text-center">
-        <p className="text-gray-400 text-sm">
-          This is your account profile.
-        </p>
+        <p className="text-gray-400 text-sm">This is your account profile.</p>
       </div>
     </div>
   );

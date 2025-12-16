@@ -35,8 +35,6 @@ const PaymentCheckout = () => {
       .then((res) => {
         window.location.href = res.data.url;
       });
-
-    // toast.success("Payment successful (Demo)");
   };
 
   if (loading) {

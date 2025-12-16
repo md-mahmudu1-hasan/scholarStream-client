@@ -2,17 +2,28 @@ import React, { useState, useEffect, useRef } from "react";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import Loader from "../Loader/Loader";
 
 const ManageScholarships = () => {
   const axiosInstance = useAxios();
   const [scholarships, setScholarships] = useState([]);
   const [Modaldata, setModaldata] = useState([]);
   const productRef = useRef(null);
+  const [loading, setLoading] = useState(false);
 
-  const fetchScholarships = async () => {
+const fetchScholarships = async () => {
+  try {
+    setLoading(true);
+
     const res = await axiosInstance.get("/scholarship");
-    setScholarships(res.data);
-  };
+    setScholarships(res.data.data);
+  } catch (error) {
+    toast.error("Failed to load scholarships");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
@@ -71,6 +82,10 @@ const ManageScholarships = () => {
     productRef.current.close();
     toast.success("Scholarship updated successfully");
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="w-full p-6 bg-white shadow rounded-lg">

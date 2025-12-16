@@ -4,29 +4,43 @@ import { FaStar } from "react-icons/fa";
 import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
 import useAuth from "../../Hooks/useAuth";
+import Loader from "../Loader/Loader";
 
 export default function ScholarshipDetails() {
   const { id } = useParams();
   const [scholarship, setScholarship] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
   const axiosInstance = useAxios();
   const navigate = useNavigate();
 
   const { user } = useAuth();
 
   useEffect(() => {
-    axiosInstance
-      .get(`/scholarship/${id}`)
-      .then((res) => setScholarship(res.data))
-      .catch((err) => console.log(err));
+    if (!id) return;
 
-    axiosInstance
-      .get(`/reviews/${id}`)
-      .then((res) => setReviews(res.data))
-      .catch((err) => console.log(err));
-  }, [id]);
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-  if (!scholarship) return <p className="text-center mt-10">Loading...</p>;
+        // 🔹 parallel request (better performance)
+        const [scholarshipRes, reviewsRes] = await Promise.all([
+          axiosInstance.get(`/scholarship/${id}`),
+          axiosInstance.get(`/reviews/${id}`),
+        ]);
+
+        setScholarship(scholarshipRes.data);
+        setReviews(reviewsRes.data);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to load scholarship details");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [id, axiosInstance]);
 
   // Apply button handler
   const handleApply = async () => {
@@ -55,6 +69,8 @@ export default function ScholarshipDetails() {
       toast.error("Error submitting application");
     }
   };
+
+  if (loading) return <Loader></Loader>;
 
   return (
     <div className="max-w-6xl mx-auto mt-17 p-4">

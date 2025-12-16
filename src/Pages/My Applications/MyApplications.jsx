@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import Loader from "../Loader/Loader";
 
 const MyApplications = () => {
   const axiosInstance = useAxios();
@@ -22,15 +23,28 @@ const MyApplications = () => {
     ratingPoint: 0,
     reviewComment: "",
   });
-
+  const [loading, setLoading] = useState(false);
   // Load applications
   useEffect(() => {
-    if (user?.email) {
-      axiosInstance
-        .get(`/applications?email=${user?.email}`)
-        .then((res) => setApplications(res.data));
-    }
-  }, [user, axiosInstance]);
+    if (!user?.email) return;
+
+    const fetchApplications = async () => {
+      try {
+        setLoading(true);
+
+        const res = await axiosInstance.get(
+          `/applications?email=${user.email}`
+        );
+        setApplications(res.data);
+      } catch (error) {
+        toast.error("Failed to load applications");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApplications();
+  }, [user?.email, axiosInstance]);
 
   // Delete Application
   const handleDelete = (id) => {
@@ -99,6 +113,10 @@ const MyApplications = () => {
         setReviewData({ ratingPoint: 0, reviewComment: "" });
       });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="p-6">

@@ -2,16 +2,28 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
+import Loader from "../Loader/Loader";
 
 const ManageUsers = () => {
   const axiosInstance = useAxios();
   const [users, setUsers] = useState([]);
   const [filterRole, setFilterRole] = useState("All");
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    axiosInstance.get("/users").then((res) => {
-      setUsers(res.data);
-    });
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+
+        const res = await axiosInstance.get("/users");
+        setUsers(res.data);
+      } catch (error) {
+        toast.error("Failed to load users");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
   }, []);
 
   const filteredUsers =
@@ -54,6 +66,9 @@ const ManageUsers = () => {
     });
   };
 
+  if (loading) {
+    return <Loader></Loader>;
+  }
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Manage Users</h2>

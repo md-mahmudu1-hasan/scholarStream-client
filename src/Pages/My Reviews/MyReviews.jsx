@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useAxios from "../../Hooks/useAxios";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import Loader from "../Loader/Loader";
 
 const MyReviews = () => {
   const axiosInstance = useAxios();
@@ -11,14 +12,27 @@ const MyReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [selectedReview, setSelectedReview] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (user?.email) {
-      axiosInstance.get(`/reviews?userEmail=${user?.email}`).then((res) => {
+    if (!user?.email) return;
+
+    const fetchReviews = async () => {
+      try {
+        setLoading(true);
+
+        const res = await axiosInstance.get(`/reviews?userEmail=${user.email}`);
+
         setReviews(res.data.data || []);
-      });
-    }
-  }, [user, axiosInstance]);
+      } catch (error) {
+        toast.error("Failed to load reviews");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [user?.email, axiosInstance]);
 
   const handleDelete = async (id) => {
     const result = await Swal.fire({
@@ -80,6 +94,8 @@ const MyReviews = () => {
       );
     }
   };
+
+  if (loading) return <Loader></Loader>;
 
   return (
     <div className="p-6">

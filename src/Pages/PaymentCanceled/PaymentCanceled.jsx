@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
 import useAxios from "../../Hooks/useAxios";
+import Loader from "../Loader/Loader";
 
 const PaymentCanceled = () => {
   const [searchParams] = useSearchParams();
@@ -22,9 +23,7 @@ const PaymentCanceled = () => {
 
   if (!paymentData) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-lg font-semibold">Loading payment details...</p>
-      </div>
+      <Loader></Loader>
     );
   }
 

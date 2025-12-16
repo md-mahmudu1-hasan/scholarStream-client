@@ -21,6 +21,7 @@ import AllReviews from "../Pages/All reviews/AllReviews";
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import AdminRoute from "../Authentication/AdminRoute/AdminRoute";
 import ModaretorRoute from "../Authentication/ModaretorRoute/ModaretorRoute";
+import Loader from "../Pages/Loader/Loader";
 
 export const router = createBrowserRouter([
   {
@@ -66,7 +67,11 @@ export const router = createBrowserRouter([
       {
         path: "/forbidden",
         element: <Forbidden></Forbidden>,
-      }
+      },
+      {
+        path: "loader",
+        element: <Loader></Loader>,
+      },
     ],
   },
   {
@@ -83,19 +88,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/add-scolership",
-        element:<AdminRoute><AddScholarshipForm></AddScholarshipForm></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <AddScholarshipForm></AddScholarshipForm>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/manage-scolership",
-        element:<AdminRoute><ManageScholarships></ManageScholarships></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <ManageScholarships></ManageScholarships>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/manage-users",
-        element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>,
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
       },
       {
         path: "/dashboard/manage-applications",
-        element:<ModaretorRoute><ManageAppliedApplications></ManageAppliedApplications></ModaretorRoute>,
+        element: (
+          <ModaretorRoute>
+            <ManageAppliedApplications></ManageAppliedApplications>
+          </ModaretorRoute>
+        ),
       },
       {
         path: "/dashboard/my-applications",
@@ -107,7 +128,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all-reviews",
-        element:<ModaretorRoute><AllReviews></AllReviews></ModaretorRoute>,
+        element: (
+          <ModaretorRoute>
+            <AllReviews></AllReviews>
+          </ModaretorRoute>
+        ),
       },
     ],
   },

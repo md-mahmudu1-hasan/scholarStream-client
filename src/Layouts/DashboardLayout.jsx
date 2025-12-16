@@ -8,11 +8,12 @@ import { MdManageHistory, MdOutlineReviews, MdReviews } from "react-icons/md";
 import { FaRegNewspaper, FaUsers } from "react-icons/fa";
 import { IoNewspaperOutline } from "react-icons/io5";
 import useRole from "../Hooks/useRole";
+import Loader from "../Pages/Loader/Loader";
 
 const DashboardLayout = () => {
   const [open, setOpen] = useState(false);
-  const { SignOut } = useAuth();
-  const { data } = useRole();
+  const { SignOut, loading } = useAuth();
+  const { data, isLoading } = useRole();
 
   const navigate = useNavigate();
 
@@ -22,6 +23,10 @@ const DashboardLayout = () => {
       toast.success("Logout successfully");
     });
   };
+
+  if (isLoading || loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">

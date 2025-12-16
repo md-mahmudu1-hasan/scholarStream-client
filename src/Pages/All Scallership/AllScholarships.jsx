@@ -3,6 +3,7 @@ import useAxios from "../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import Container from "../../Shared/Container";
+import Loader from "../Loader/Loader";
 
 const AllScholarships = () => {
   const axiosInstance = useAxios();
@@ -39,7 +40,7 @@ const AllScholarships = () => {
     keepPreviousData: true,
   });
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+  if (isLoading) return <Loader></Loader>
   if (isError) return <p className="text-center mt-10">Error loading data</p>;
 
   const scholarships = data?.data || [];
