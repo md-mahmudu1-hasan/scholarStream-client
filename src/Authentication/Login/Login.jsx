@@ -98,7 +98,7 @@ export default function Login() {
 
               <span
                 onClick={() => setShowPass(!showPass)}
-                className="absolute right-3 top-3 cursor-pointer opacity-60"
+                className="absolute right-3 top-3 cursor-pointer opacity-60 z-50"
               >
                 <FaEye />
               </span>
