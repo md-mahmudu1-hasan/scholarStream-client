@@ -32,7 +32,6 @@ export default function ScholarshipDetails() {
         setScholarship(scholarshipRes.data);
         setReviews(reviewsRes.data);
       } catch (error) {
-        console.error(error);
         toast.error("Failed to load scholarship details");
       } finally {
         setLoading(false);

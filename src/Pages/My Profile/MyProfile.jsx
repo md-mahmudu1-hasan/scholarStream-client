@@ -16,8 +16,7 @@ const MyProfile = () => {
       const response = await axiosInstance.get(`/users?email=${user?.email}`);
       setProfile(response.data);
       setLoading(false);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
       setError("Profile load failed!");
       setLoading(false);
     }

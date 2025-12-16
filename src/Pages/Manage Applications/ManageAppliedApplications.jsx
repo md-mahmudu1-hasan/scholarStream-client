@@ -13,7 +13,6 @@ export default function ManageAppliedApplications() {
   const [feedbackText, setFeedbackText] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Fetch all applications
   useEffect(() => {
     setLoading(true);
 
@@ -30,7 +29,6 @@ export default function ManageAppliedApplications() {
       });
   }, []);
 
-  // Update status
   const handleStatusChange = async (id, newStatus) => {
     await axiosInstance.patch(`/applications/${id}`, {
       applicationStatus: newStatus,

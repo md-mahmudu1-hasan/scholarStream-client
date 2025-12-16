@@ -17,7 +17,6 @@ const PaymentCanceled = () => {
         .then((res) => {
           setPaymentData(res.data[0]);
         })
-        .catch((err) => console.error(err));
     }
   }, [sessionId, axiosInstance]);
 

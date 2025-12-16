@@ -19,7 +19,7 @@ const Home = () => {
   };
 
   return (
-    <div className="bg-gray-200 mt-16">
+    <div className="bg-gray-200 mt-18">
       <Banner />
 
       <motion.div

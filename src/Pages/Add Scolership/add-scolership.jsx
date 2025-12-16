@@ -30,7 +30,6 @@ const AddScholarshipForm = () => {
     axiosInstance.post("/scholarship", formData).then((res) => {
       toast.success("Scholarship added successfully");
 
-      // Reset form fields properly
       setFormData({
         scholarshipName: "",
         universityName: "",

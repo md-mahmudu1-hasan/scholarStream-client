@@ -24,6 +24,8 @@ import ModaretorRoute from "../Authentication/ModaretorRoute/ModaretorRoute";
 import NotFound from "../Pages/404 page/NoData";
 import DashboardHome from "../Pages/Dashboardhome/DashboardHome";
 import ForgetPassword from "../Authentication/Login/Forgotpassword";
+import Aaanalytics from "../Pages/Analytics/Aaanalytics";
+
 
 export const router = createBrowserRouter([
   {
@@ -73,7 +75,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "forget-password",
-        element: <ForgetPassword></ForgetPassword>
+        element: <ForgetPassword></ForgetPassword>,
       },
       {
         path: "*",
@@ -145,6 +147,10 @@ export const router = createBrowserRouter([
             <AllReviews></AllReviews>
           </ModaretorRoute>
         ),
+      },
+      {
+        path: "/dashboard/analytics",
+        element: <Aaanalytics></Aaanalytics>
       },
       {
         path: "*",

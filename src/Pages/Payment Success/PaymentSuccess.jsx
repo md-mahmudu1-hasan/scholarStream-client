@@ -17,7 +17,6 @@ const PaymentSuccess = () => {
         .then((res) => {
           setPaymentData(res.data[0]);
         })
-        .catch((err) => console.error(err));
     }
   }, [sessionId, axiosInstance]);
 
@@ -25,11 +24,9 @@ const PaymentSuccess = () => {
     if (sessionId) {
       axiosInstance
         .patch(`/applications/${sessionId}`, { paymentStatus: "Paid" })
-        .then((res) => {
-          console.log("Payment status updated:", res.data);
+        .then(() => {
         })
-        .catch((err) => {
-          console.error("Failed to update payment status:", err);
+        .catch(() => {
         });
     }
   }, [axiosInstance, sessionId]);
