@@ -13,7 +13,7 @@ export default function Login() {
 
   const axiosInstance = useAxios();
   const navigate = useNavigate();
-  const { signIn, googleSignIn } = useAuth();
+  const { signIn, googleSignIn , loading } = useAuth();
 
   const [email, setEmail] = useState("");
 
@@ -55,6 +55,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0d1224] to-[#0d1b42] px-4">
       <div className="grid md:grid-cols-2 gap-8 items-center max-w-5xl w-full">
+        <title>Login</title>
         <div className="text-white">
           <h1 className="text-5xl font-bold mb-4 leading-snug">Login</h1>
           <p className="text-lg opacity-80">

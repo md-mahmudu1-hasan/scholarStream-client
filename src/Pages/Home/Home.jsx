@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <div className="bg-gray-200 mt-18">
       <Banner />
-
+<title>Home</title>
       <motion.div
         variants={sectionVariant}
         initial="hidden"

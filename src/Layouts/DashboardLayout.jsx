@@ -35,6 +35,7 @@ const DashboardLayout = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      <title>Dashboard</title>
       <header className="w-full bg-linear-to-br from-blue-200 to-gray-200 shadow-xl z-30 md:pl-64 flex items-center justify-between px-4 py-3">
         <div className="flex items-center gap-4 text-white">
           {/* Mobile Menu Button */}

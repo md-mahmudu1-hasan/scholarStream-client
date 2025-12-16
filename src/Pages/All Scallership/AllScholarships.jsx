@@ -48,6 +48,7 @@ const AllScholarships = () => {
   return (
     <Container>
       <div className="mt-12">
+        <title>All Scholarship</title>
         <h1 className="text-3xl font-bold py-6 text-center">
           All Scholarships
         </h1>

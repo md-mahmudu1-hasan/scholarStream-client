@@ -92,6 +92,7 @@ export default function Signup() {
     <div className="min-h-screen mt-17 flex items-center justify-center bg-gradient-to-br from-[#0d1224] to-[#0d1b42] px-4">
       <div className="grid md:grid-cols-2 gap-8 items-center max-w-5xl w-full">
         <div className="text-white">
+          <title>Register</title>
           <h1 className="text-5xl font-bold mb-4 leading-snug">
             Create Account
           </h1>
