@@ -4,8 +4,7 @@
 
 **A Robust, Role-Based Platform for Global Scholarship Management and Application.**
 
-ScholarStream is a full-stack scholarship management platform designed to streamline the connection between students and global educational opportunities. It features a secure, role-based system (Admin, Moderator, Student), integrating Stripe for secure application fee payments. The platform offers students advanced discovery tools with server-side search, filter, and sort capabilities, while providing Administrators and Moderators dedicated dashboards for managing users, applications, and scholarship listings.
-
+ScholarStream:AI revolutionizes the way students discover, apply for, and manage global scholarships. Utilizing modern web technologies, it features a secure payment system, advanced server-side search, and dedicated dashboards for students, moderators, and administrators.
 
 ## ✨ Features at a Glance
 
