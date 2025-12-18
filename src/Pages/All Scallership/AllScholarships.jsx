@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import Container from "../../Shared/Container";
 import Loader from "../Loader/Loader";
+import LoaderCard from "../LoaderCard/LoaderCard";
 
 const AllScholarships = () => {
   const axiosInstance = useAxios();
@@ -120,7 +121,7 @@ const AllScholarships = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
           {isFetching ? (
             <div className="col-span-3 flex justify-center py-20">
-              <Loader />
+             <LoaderCard/>
             </div>
           ) : scholarships.length > 0 ? (
             scholarships.map((scholar) => (

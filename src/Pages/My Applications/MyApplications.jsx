@@ -108,7 +108,7 @@ const MyApplications = () => {
         reviewDate: new Date(),
       })
       .then(() => {
-        toast.success("Review submitted");
+        toast.success("Review submitted ");
         setShowReview(false);
         setReviewData({ ratingPoint: 0, reviewComment: "" });
       });
@@ -191,13 +191,10 @@ const MyApplications = () => {
 
                     {app.applicationStatus === "Completed" && (
                       <button
-                        onClick={() =>
-                          handleReviewSubmit(
-                            selectedApp.scholarshipId,
-                            selectedApp.universityName,
-                            selectedApp.ScholarshipName
-                          )
-                        }
+                        onClick={() => {
+                          setSelectedApp(app);
+                          setShowReview(true);
+                        }}
                         className="bg-purple-600 text-white py-1 rounded"
                       >
                         Add Review
@@ -218,6 +215,117 @@ const MyApplications = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Review Modal */}
+      {showReview && selectedApp && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
+          <div className="bg-white p-6 rounded w-96">
+            <h2 className="text-xl font-semibold mb-4">
+              Add Review for {selectedApp?.universityName}
+            </h2>
+
+            {/* Rating */}
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Rating (1-5)</label>
+              <input
+                type="number"
+                min="1"
+                max="5"
+                value={reviewData.ratingPoint}
+                onChange={(e) =>
+                  setReviewData({
+                    ...reviewData,
+                    ratingPoint: Number(e.target.value),
+                  })
+                }
+                className="w-full border px-3 py-2 rounded"
+              />
+            </div>
+
+            {/* Comment */}
+            <div className="mb-4">
+              <label className="block mb-1 font-medium">Comment</label>
+              <textarea
+                value={reviewData.reviewComment}
+                onChange={(e) =>
+                  setReviewData({
+                    ...reviewData,
+                    reviewComment: e.target.value,
+                  })
+                }
+                className="w-full border px-3 py-2 rounded"
+                rows={4}
+                placeholder="Write your review here..."
+              />
+            </div>
+
+            <div className="flex justify-end gap-3 mt-5">
+              <button
+                onClick={() => {
+                  setShowReview(false);
+                  setReviewData({ ratingPoint: 0, reviewComment: "" });
+                }}
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() =>
+                  handleReviewSubmit(
+                    selectedApp?.scholarshipId,
+                    selectedApp?.universityName,
+                    selectedApp?.ScholarshipName
+                  )
+                }
+                className="bg-purple-600 text-white px-4 py-2 rounded"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Details Modal */}
+      {showDetails && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-lg">
+            <h2 className="text-2xl font-bold mb-4">Application Details</h2>
+
+            <p>
+              <b>Name:</b> {selectedApp.ApplicantName}
+            </p>
+            <p>
+              <b>Email:</b> {selectedApp.ApplicantEmail}
+            </p>
+            <p>
+              <b>University:</b> {selectedApp.universityName}
+            </p>
+            <p>
+              <b>Address:</b> {selectedApp.universityAddress}
+            </p>
+            <p>
+              <b>Category:</b> {selectedApp.subjectCategory}
+            </p>
+            <p>
+              <b>Status:</b> {selectedApp.applicationStatus}
+            </p>
+            <p>
+              <b>Payment:</b> {selectedApp.paymentStatus || "Unpaid"}
+            </p>
+            <p>
+              <b>Feedback:</b> {selectedApp.feedback || "No feedback"}
+            </p>
+
+            <button
+              onClick={() => setShowDetails(false)}
+              className="mt-4 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Edit Modal */}
       {showEdit && selectedApp && (

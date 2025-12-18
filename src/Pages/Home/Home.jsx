@@ -21,16 +21,8 @@ const Home = () => {
   return (
     <div className="bg-gray-200 mt-18">
       <Banner />
-<title>Home</title>
-      <motion.div
-        variants={sectionVariant}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        className="mt-12"
-      >
-        <Topscallership />
-      </motion.div>
+      <title>Home</title>
+      <Topscallership />
 
       <motion.div
         variants={sectionVariant}

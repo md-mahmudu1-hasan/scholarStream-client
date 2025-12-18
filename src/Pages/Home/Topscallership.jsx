@@ -3,7 +3,13 @@ import React from "react";
 import useAxios from "../../Hooks/useAxios";
 import { Link } from "react-router";
 import Container from "../../Shared/Container";
-import Loader from "../Loader/Loader";
+import { motion } from "framer-motion";
+import LoaderCard from "../LoaderCard/LoaderCard";
+
+const sectionVariant = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+};
 
 const Topscallership = () => {
   const axiosInstance = useAxios();
@@ -20,7 +26,7 @@ const Topscallership = () => {
 
   const topScholarships = data?.data?.slice(0, 6);
 
-  if (isLoading) return <Loader></Loader>
+  if (isLoading) return <LoaderCard/>
   if (isError) return <p>Error: {error?.message}</p>;
 
   return (
@@ -31,8 +37,12 @@ const Topscallership = () => {
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
           {topScholarships?.map((scholar) => (
-            <div
+            <motion.div
               key={scholar._id}
+              variants={sectionVariant}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
               className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
             >
               <div className="relative overflow-hidden">
@@ -72,7 +82,7 @@ const Topscallership = () => {
                   View Details
                 </Link>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
