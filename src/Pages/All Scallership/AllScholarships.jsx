@@ -34,13 +34,12 @@ const AllScholarships = () => {
     return res.data;
   };
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: ["scholarships", { page, search, subject, location, sort }],
     queryFn: fetchScholarships,
     keepPreviousData: true,
   });
-
-  if (isLoading) return <Loader></Loader>
+  // if (isLoading) return <Loader></Loader>;
   if (isError) return <p className="text-center mt-10">Error loading data</p>;
 
   const scholarships = data?.data || [];
@@ -119,7 +118,11 @@ const AllScholarships = () => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
-          {scholarships.length > 0 ? (
+          {isFetching ? (
+            <div className="col-span-3 flex justify-center py-20">
+              <Loader />
+            </div>
+          ) : scholarships.length > 0 ? (
             scholarships.map((scholar) => (
               <div
                 key={scholar._id}
@@ -179,7 +182,7 @@ const AllScholarships = () => {
             Prev
           </button>
 
-          {[...Array(data.totalPages).keys()].map((p) => (
+          {[...Array(data?.totalPages).keys()].map((p) => (
             <button
               key={p}
               onClick={() => setPage(p + 1)}
@@ -192,7 +195,7 @@ const AllScholarships = () => {
           ))}
 
           <button
-            disabled={page === data.totalPages}
+            disabled={page === data?.totalPages}
             onClick={() => setPage(page + 1)}
             className="px-4 py-2 border rounded disabled:opacity-50"
           >

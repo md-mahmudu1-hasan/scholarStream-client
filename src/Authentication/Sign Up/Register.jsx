@@ -19,7 +19,7 @@ export default function Signup() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm();
 
@@ -77,13 +77,13 @@ export default function Signup() {
   useEffect(() => {
     if (error) {
       if (error === "auth/email-already-in-use") {
-        toast.error("This email is already registered.");
+        seterror("This email is already registered.");
       } else if (error === "auth/invalid-email") {
-        toast.error("Invalid email address.");
+        seterror("Invalid email address.");
       } else if (error === "auth/weak-password") {
-        toast.error("Password is too weak.");
+        seterror("Password is too weak.");
       } else {
-        toast.error(error);
+        seterror(error);
       }
     }
   }, [error]);
@@ -192,10 +192,14 @@ export default function Signup() {
           {error && <p className="text-red-500 text-sm -mt-3 mb-3">{error}</p>}
 
           <button
-            type="submit"
             className="btn w-full bg-blue-600 hover:bg-blue-700 text-white mb-3"
+            disabled={isSubmitting}
           >
-            Create account
+            {isSubmitting ? (
+              <span class="loading loading-spinner text-primary"></span>
+            ) : (
+              "Create Account"
+            )}
           </button>
 
           <button

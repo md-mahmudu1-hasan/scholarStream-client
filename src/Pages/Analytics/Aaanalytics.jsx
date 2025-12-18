@@ -61,21 +61,35 @@ const Aaanalytics = () => {
     ],
   };
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Applications per University",
-        font: {
-          size: 18,
-        },
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: {
+    legend: {
+      position: "top",
+    },
+    title: {
+      display: true,
+      text: "Applications per University",
+      font: {
+        size: 18,
       },
     },
-  };
+  },
+  scales: {
+    x: {
+      ticks: {
+        autoSkip: true,
+        maxRotation: 45,
+        minRotation: 20,
+      },
+    },
+    y: {
+      beginAtZero: true,
+    },
+  },
+};
+
 
   if (isLoading || totalUsersLoading || totalScholarshipsLoading)
     return <Loader />;
@@ -97,10 +111,10 @@ const Aaanalytics = () => {
           <p className="text-3xl font-semibold">{totalScholarships}</p>
         </div>
       </div>
+<div className="w-full h-[300px] sm:h-[350px] md:h-[450px]">
+  <Bar data={chartData} options={chartOptions} />
+</div>
 
-      <div className="bg-white p-6 rounded-lg shadow">
-        <Bar data={chartData} options={chartOptions} />
-      </div>
     </div>
   );
 };

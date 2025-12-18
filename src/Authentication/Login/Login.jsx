@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -11,16 +11,16 @@ export default function Login() {
   const [showPass, setShowPass] = useState(false);
   const [error, setError] = useState("");
 
-  const axiosInstance = useAxios();
+  const axiosInstance = useAxios(); 
   const navigate = useNavigate();
-  const { signIn, googleSignIn , loading } = useAuth();
+  const { signIn, googleSignIn } = useAuth();
 
   const [email, setEmail] = useState("");
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm();
 
   const handleLogin = async (data) => {
@@ -51,6 +51,20 @@ export default function Login() {
       setError(err.message.split("(")[1].split(")")[0]);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      if (error === "auth/invalid-credential") {
+        setError("Invalid email or password.");
+      } else if (error === "auth/invalid-email") {
+        setError("Invalid email address.");
+      } else if (error === "auth/weak-password") {
+        setError("Password is too weak.");
+      } else {
+        setError(error);
+      }
+    }
+  }, [error]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0d1224] to-[#0d1b42] px-4">
@@ -112,7 +126,7 @@ export default function Login() {
             )}
 
             {error && (
-              <p className="text-red-500 text-sm -mt-3 mb-3">{error}</p>
+              <p className="text-red-500 pt-4 text-sm -mt-3 mb-3">{error}</p>
             )}
 
             <div className="text-xs py-2">
@@ -126,10 +140,14 @@ export default function Login() {
             </div>
 
             <button
-              type="submit"
               className="btn w-full bg-blue-600 hover:bg-blue-700 text-white mb-3"
+              disabled={isSubmitting}
             >
-              Login
+              {isSubmitting ? (
+                <span className="loading loading-spinner text-primary"></span>
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
 

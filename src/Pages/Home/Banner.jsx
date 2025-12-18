@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const scholarships = [
   {
-    universityImage: "https://jcf.org.bd/jcfwebport/wp-content/uploads/2020/02/scholar.jpg",
+    universityImage: "https://clickpetroleoegas.com.br/wp-content/uploads/2025/03/Harvard.png",
     scholarshipName: "Harvard University Full Scholarship",
     worldRank: 2,
     location: "Cambridge, USA",

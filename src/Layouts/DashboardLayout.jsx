@@ -36,31 +36,33 @@ const DashboardLayout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <title>Dashboard</title>
-      <header className="w-full bg-linear-to-br from-blue-200 to-gray-200 shadow-xl z-30 md:pl-64 flex items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-4 text-white">
+      <header className="fixed top-0 left-0 right-0 h-[68px] bg-gradient-to-br from-blue-300 to-gray-200 shadow-lg z-40 flex items-center justify-between px-4 md:pl-64">
+        {/* Left side */}
+        <div className="flex items-center gap-3">
           {/* Mobile Menu Button */}
           <button
             onClick={() => setOpen(true)}
-            className="md:hidden p-2 bg-blue-700 rounded-lg hover:bg-blue-800 transition"
+            className="md:hidden p-2 rounded-lg bg-white/20 hover:bg-white/30 transition"
           >
-            <FiMenu size={22} />
+            <FiMenu size={22} className="text-white" />
           </button>
-          {/* Logo and Back to Home Link */}
+
+          {/* Back to Home */}
           <Link
-            className="flex items-center gap-3 p-2 rounded-lg hover:bg-blue-700 transition duration-200"
             to="/"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-white/20 transition"
           >
             <IoArrowBackCircleOutline size={22} className="text-white" />
-            <span className="font-semibold hidden sm:inline text-white">
-              Back to home
-            </span>
+            <span className="text-white font-medium">Back to home</span>
           </Link>
         </div>
-            <img
-              src="https://i.ibb.co/wNw5Qvvm/short.png"
-              alt="Logo"
-              className="h-10 w-20 object-contain ml-4"
-            />
+
+        {/* Center Logo */}
+        <img
+          src="https://i.ibb.co/wNw5Qvvm/short.png"
+          alt="Logo"
+          className="h-9 object-contain"
+        />
       </header>
 
       <div className="flex flex-1 pt-[68px]">
