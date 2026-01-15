@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white py-14 mt-16 border-t border-gray-700">
+    <footer className="bg-gray-900 text-white py-14 border-t border-gray-700">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-10">
         <div>
           <h2 className="text-3xl font-bold tracking-wide mb-3">

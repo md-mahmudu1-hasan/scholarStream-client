@@ -29,20 +29,17 @@ export default function Signup() {
     try {
       if (!createUser) return;
 
-      // create user
       await createUser(email, password).then((res) => {
         setUser({ ...res.user, displayName: name, photoURL: photoURL });
         toast.success("User Created Successfully");
       });
 
-      // update profile
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: photoURL || undefined,
         });
 
-        // save to database
         await axiosInstance.post("/users", {
           name,
           email,
@@ -103,15 +100,15 @@ export default function Signup() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="bg-white shadow-xl rounded-xl p-8 w-full"
+          className="bg-white dark:bg-[#0b0b0b] shadow-xl rounded-xl p-8 w-full"
         >
-          <h2 className="text-2xl font-semibold mb-6">Sign up</h2>
+          <h2 className="text-2xl font-semibold mb-6 text-gray-900 dark:text-white">Sign up</h2>
 
-          <label className="block text-sm font-medium mb-1">Name</label>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Name</label>
           <input
             type="text"
             placeholder="Your full name"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full dark:bg-[#1b1b1b] dark:text-white dark:border-gray-700"
             {...register("name", { required: "Name is required" })}
           />
           {errors.name && (
@@ -120,11 +117,11 @@ export default function Signup() {
 
           <div className="h-3" />
 
-          <label className="block text-sm font-medium mb-1">Email</label>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Email</label>
           <input
             type="email"
             placeholder="you@email.com"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full dark:bg-[#1b1b1b] dark:text-white dark:border-gray-700"
             {...register("email", {
               required: "Email is required",
               pattern: {
@@ -139,11 +136,11 @@ export default function Signup() {
 
           <div className="h-3" />
 
-          <label className="block text-sm font-medium mb-1">Photo URL</label>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Photo URL</label>
           <input
             type="text"
             placeholder="https://your-photo-url.com"
-            className="input input-bordered w-full"
+            className="input input-bordered w-full dark:bg-[#1b1b1b] dark:text-white dark:border-gray-700"
             {...register("photoURL", {
               pattern: {
                 value: /^(https?:\/\/).+/i,
@@ -152,19 +149,17 @@ export default function Signup() {
             })}
           />
           {errors.photoURL && (
-            <p className="text-red-500 text-sm mt-1">
-              {errors.photoURL.message}
-            </p>
+            <p className="text-red-500 text-sm mt-1">{errors.photoURL.message}</p>
           )}
 
           <div className="h-3" />
 
-          <label className="block text-sm font-medium mb-1">Password</label>
+          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Password</label>
           <div className="relative mb-4">
             <input
               type={showPass ? "text" : "password"}
               placeholder="Enter your password"
-              className="input input-bordered w-full"
+              className="input input-bordered w-full dark:bg-[#1b1b1b] dark:text-white dark:border-gray-700"
               {...register("password", {
                 required: "Password is required",
                 minLength: { value: 6, message: "Minimum 6 characters" },
@@ -176,18 +171,15 @@ export default function Signup() {
                 },
               })}
             />
-
             <span
               onClick={() => setShowPass(!showPass)}
               className="absolute z-50 right-3 top-3 cursor-pointer opacity-60"
             >
-              <FaEye />
+              <FaEye className="text-gray-500 dark:text-gray-400" />
             </span>
           </div>
           {errors.password && (
-            <p className="text-red-500 text-sm -mt-3 mb-3">
-              {errors.password.message}
-            </p>
+            <p className="text-red-500 text-sm -mt-3 mb-3">{errors.password.message}</p>
           )}
           {error && <p className="text-red-500 text-sm -mt-3 mb-3">{error}</p>}
 
@@ -196,7 +188,7 @@ export default function Signup() {
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              <span class="loading loading-spinner text-primary"></span>
+              <span className="loading loading-spinner text-primary"></span>
             ) : (
               "Create Account"
             )}
@@ -205,14 +197,14 @@ export default function Signup() {
           <button
             type="button"
             onClick={handleGoogle}
-            className="btn w-full bg-blue-50 text-gray-700 border border-gray-200 mb-4"
+            className="btn w-full bg-blue-50 dark:bg-gray-800 text-gray-700 dark:text-white border border-gray-200 dark:border-gray-700 mb-4 flex items-center justify-center gap-2"
           >
             <FcGoogle size={22} /> Continue with Google
           </button>
 
-          <p className="text-center text-sm text-gray-600">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-600 cursor-pointer">
+            <Link to="/login" className="text-blue-600 dark:text-blue-400 cursor-pointer">
               Log in
             </Link>
           </p>

@@ -25,6 +25,9 @@ import NotFound from "../Pages/404 page/NoData";
 import DashboardHome from "../Pages/Dashboardhome/DashboardHome";
 import ForgetPassword from "../Authentication/Login/Forgotpassword";
 import Aaanalytics from "../Pages/Analytics/Aaanalytics";
+import About from "../Pages/About/About";
+import Blog from "../Pages/Blog/Blog";
+import Support from "../Pages/Support/Support";
 
 
 export const router = createBrowserRouter([
@@ -36,6 +39,18 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "about",
+        element: <About></About>,
+      },
+      {
+        path: "blog",
+        element: <Blog></Blog>,
+      },
+      {
+        path: "support",
+        element: <Support></Support>,
       },
       {
         path: "login",
@@ -63,11 +78,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "scholarship/:id",
-        element: (
-          <PrivetRoute>
-            <ScholarshipDetails></ScholarshipDetails>
-          </PrivetRoute>
-        ),
+        element: <ScholarshipDetails></ScholarshipDetails>,
       },
       {
         path: "/forbidden",

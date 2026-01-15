@@ -70,13 +70,13 @@ const ManageUsers = () => {
     return <Loader></Loader>;
   }
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Manage Users</h2>
+    <div className="p-6 bg-white dark:bg-gray-800">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Manage Users</h2>
 
       <div className="mb-4 flex items-center gap-3">
-        <label className="font-medium">Filter by Role:</label>
+        <label className="font-medium text-gray-700 dark:text-gray-300">Filter by Role:</label>
         <select
-          className="border px-3 py-2 rounded"
+          className="border border-gray-300 dark:border-gray-600 px-3 py-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           value={filterRole}
           onChange={(e) => setFilterRole(e.target.value)}
         >
@@ -88,8 +88,8 @@ const ManageUsers = () => {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full border rounded-lg">
-          <thead className="bg-gray-100">
+        <table className="min-w-full border border-gray-200 dark:border-gray-600 rounded-lg">
+          <thead className="bg-gray-100 dark:bg-gray-700">
             <tr>
               <th className="border px-4 py-2 text-left">#</th>
               <th className="border px-4 py-2 text-left">Name</th>
@@ -102,7 +102,7 @@ const ManageUsers = () => {
 
           <tbody>
             {filteredUsers.map((user, index) => (
-              <tr key={user._id} className="hover:bg-gray-50">
+              <tr key={user._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{user.name}</td>
                 <td className="border px-4 py-2">{user.email}</td>
@@ -110,7 +110,7 @@ const ManageUsers = () => {
 
                 <td className="border px-4 py-2 text-center">
                   <select
-                    className="border px-3 py-2 rounded"
+                    className="border border-gray-300 dark:border-gray-600 px-3 py-2 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     value={user.role}
                     onChange={(e) => handleRoleChange(user._id, e.target.value)}
                   >
@@ -122,7 +122,7 @@ const ManageUsers = () => {
 
                 <td className="border px-4 py-2 text-center">
                   <button
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition"
                     onClick={() => handleDelete(user._id)}
                   >
                     Delete

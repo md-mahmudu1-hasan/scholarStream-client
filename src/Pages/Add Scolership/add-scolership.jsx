@@ -48,146 +48,146 @@ const AddScholarshipForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-6">Add Scholarship</h2>
+    <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Add Scholarship</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-medium">Scholarship Name</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Scholarship Name</label>
           <input
             type="text"
             name="scholarshipName"
             value={formData.scholarshipName}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             required
           />
         </div>
 
         <div>
-          <label className="block font-medium">University Name</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">University Name</label>
           <input
             type="text"
             name="universityName"
             value={formData.universityName}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             required
           />
         </div>
 
         <div>
-          <label className="block font-medium">University Image URL</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">University Image URL</label>
           <input
             type="text"
             name="universityImage"
             value={formData.universityImage}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">University World Rank</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">University World Rank</label>
           <input
             type="number"
             name="universityWorldRank"
             value={formData.universityWorldRank}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Degree</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Degree</label>
           <input
             type="text"
             name="degree"
             value={formData.degree}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Category</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Category</label>
           <input
             type="text"
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Subject</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Subject</label>
           <input
             type="text"
             name="subject"
             value={formData.subject}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Location</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Location</label>
           <input
             type="text"
             name="location"
             value={formData.location}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Deadline</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Deadline</label>
           <input
             type="date"
             name="deadline"
             value={formData.deadline}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Application Fees</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Application Fees</label>
           <input
             type="number"
             name="applicationFees"
             value={formData.applicationFees}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Stipend</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Stipend</label>
           <input
             type="text"
             name="stipend"
             value={formData.stipend}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
 
         <div>
-          <label className="block font-medium">Description</label>
+          <label className="block font-medium text-gray-700 dark:text-gray-300">Description</label>
           <textarea
             name="description"
             value={formData.description}
             onChange={handleChange}
-            className="w-full border rounded px-3 py-2 mt-1"
+            className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             rows="4"
           ></textarea>
         </div>
 
         <button
           type="submit"
-          className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded transition"
         >
           Add Scholarship
         </button>

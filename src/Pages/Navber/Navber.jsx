@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link, NavLink } from "react-router";
 import Container from "../../Shared/Container";
-import "./Navber.css";
 import useAuth from "../../Hooks/useAuth";
+import "./Navber.css";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { user, SignOut } = useAuth();
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  useEffect(() => {
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const handleTheme = (checked) => {
+    setTheme(checked ? "dark" : "light");
+  };
 
   const handleMenuClick = () => {
     setMobileOpen(false);
@@ -20,61 +31,116 @@ export default function Navbar() {
     handleMenuClick();
   };
 
+  const navLinkClass = ({ isActive }) =>
+    isActive
+      ? "underline font-semibold dark:text-sky-400"
+      : "hover:underline dark:hover:text-sky-300";
+
   return (
     <Container>
       <nav
-        className="w-full px-12 bg-linear-to-r from-white/70 to-gray-200/70
-        shadow-sm fixed top-0 left-0 z-50 transition-all duration-300"
+        className="
+        fixed top-0 left-0 z-50 w-full px-12
+        bg-linear-to-r from-white/70 to-gray-200/70
+        dark:from-gray-700 dark:to-gray-900
+        shadow-sm transition-all duration-300
+        "
       >
         <div className="container mx-auto flex items-center justify-between px-4 py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-1 cursor-pointer select-none">
-            <Link to="/" className="text-blue-800 font-bold text-2xl">
-              <img className="w-13 h-full object-cover" src="https://i.ibb.co.com/WvDXKbPf/Gemini-Generated-Image-t7ay06t7ay06t7ay-1.png" alt="" />
-            </Link>
-          </div>
+          <Link to="/" className="select-none">
+            <img
+              className="w-13 h-full object-cover"
+              src="https://i.ibb.co.com/WvDXKbPf/Gemini-Generated-Image-t7ay06t7ay06t7ay-1.png"
+              alt="Logo"
+            />
+          </Link>
+          <label className="flex items-center cursor-pointer space-x-2">
+            <span className="text-sm font-medium dark:text-gray-200">
+              {theme === "dark" ? "Dark" : "Light"}
+            </span>
+            <input
+              onChange={(e) => handleTheme(e.target.checked)}
+              type="checkbox"
+              defaultChecked={localStorage.getItem("theme") === "dark"}
+              className="toggle"
+            />
+          </label>
 
           {/* Desktop Menu */}
-          <ul className="hidden md:flex items-center space-x-8 text-[15px] font-medium text-gray-700">
-            <NavLink
-              to="/"
-              onClick={handleMenuClick}
-              className="hover:text-blue-700 transition"
-            >
+          <ul
+            className="
+            hidden md:flex items-center space-x-8
+            text-[15px] font-medium
+            text-gray-700 dark:text-white
+            "
+          >
+            <NavLink to="/" onClick={handleMenuClick} className={navLinkClass}>
               Home
             </NavLink>
 
             <NavLink
               to="/all-scholarships"
               onClick={handleMenuClick}
-              className="hover:text-blue-700 transition"
+              className={navLinkClass}
             >
               All Scholarships
             </NavLink>
-            {/* If User Logged In → Show Profile + Dropdown */}
+
+            <NavLink
+              to="/about"
+              onClick={handleMenuClick}
+              className={navLinkClass}
+            >
+              About
+            </NavLink>
+
+            <NavLink
+              to="/blog"
+              onClick={handleMenuClick}
+              className={navLinkClass}
+            >
+              Blog
+            </NavLink>
+
+            <NavLink
+              to="/support"
+              onClick={handleMenuClick}
+              className={navLinkClass}
+            >
+              Help / Support
+            </NavLink>
+
             {user ? (
               <div className="relative">
                 <img
                   src={user?.photoURL}
-                  alt="User"
                   referrerPolicy="no-referrer"
-                  className="w-10 h-10 rounded-full border cursor-pointer"
+                  className="w-10 h-10 rounded-full border dark:border-gray-600 cursor-pointer"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 />
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border">
+                  <div
+                    className="
+                    absolute right-0 mt-2 w-40
+                    bg-white dark:bg-black
+                    border dark:border-gray-700
+                    rounded-md shadow-lg
+                    text-gray-800 dark:text-white
+                    "
+                  >
                     <Link
                       to="/dashboard"
-                      className="block px-4 py-2 hover:bg-gray-100"
                       onClick={handleMenuClick}
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
                       Dashboard
                     </Link>
 
                     <button
                       onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
                       Logout
                     </button>
@@ -86,64 +152,75 @@ export default function Navbar() {
                 <Link
                   to="/login"
                   onClick={handleMenuClick}
-                  className="text-blue-700 font-semibold hover:opacity-80 transition"
+                  className={navLinkClass}
                 >
                   LOG IN
                 </Link>
 
-                <li>
-                  <Link
-                    to="/signup"
-                    onClick={handleMenuClick}
-                    className="bg-green-700 hover:bg-green-800 transition text-white px-5 py-2 rounded-full"
-                  >
-                    SIGN UP
-                  </Link>
-                </li>
+                <Link
+                  to="/signup"
+                  onClick={handleMenuClick}
+                  className="bg-green-700 hover:bg-green-800 transition text-white px-5 py-2 rounded-full"
+                >
+                  SIGN UP
+                </Link>
               </>
             )}
           </ul>
+
+          {/* Mobile Icon */}
           <button
-            className="md:hidden"
+            className="md:hidden text-gray-800 dark:text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
             {mobileOpen ? <FiX size={28} /> : <FiMenu size={28} />}
           </button>
         </div>
+
+        {/* Mobile Menu */}
         <div
-          className={`md:hidden bg-white shadow-lg overflow-hidden transition-all duration-300 ${
-            mobileOpen ? "max-h-[500px] py-4" : "max-h-0"
-          }`}
+          className={`
+          md:hidden overflow-hidden transition-all duration-300
+          bg-white dark:bg-black
+          ${mobileOpen ? "max-h-[500px] py-4" : "max-h-0"}
+          `}
         >
-          <ul className="flex flex-col space-y-4 px-6">
-            <Link to="/" onClick={handleMenuClick} className="font-medium">
+          <ul
+            className="
+            flex flex-col space-y-4 px-6
+            font-medium
+            text-gray-700 dark:text-white
+            "
+          >
+            <Link to="/" onClick={handleMenuClick}>
               Home
             </Link>
 
-            <Link
-              to="/all-scholarships"
-              onClick={handleMenuClick}
-              className="font-medium"
-            >
+            <Link to="/all-scholarships" onClick={handleMenuClick}>
               All Scholarships
+            </Link>
+
+            <Link to="/about" onClick={handleMenuClick}>
+              About
+            </Link>
+
+            <Link to="/blog" onClick={handleMenuClick}>
+              Blog
+            </Link>
+
+            <Link to="/support" onClick={handleMenuClick}>
+              Help / Support
             </Link>
 
             {user ? (
               <>
-                <Link
-                  to="/dashboard"
-                  onClick={handleMenuClick}
-                  className="font-medium"
-                >
+                <Link to="/dashboard" onClick={handleMenuClick}>
                   Dashboard
                 </Link>
 
                 <button
-                  onClick={() => {
-                    logout();
-                    handleMenuClick();
-                  }}
-                  className="text-left font-medium text-red-600"
+                  onClick={handleLogout}
+                  className="text-left text-red-500"
                 >
                   Logout
                 </button>
@@ -153,7 +230,7 @@ export default function Navbar() {
                 <Link
                   to="/login"
                   onClick={handleMenuClick}
-                  className="text-blue-700 font-semibold"
+                  className="dark:text-white"
                 >
                   LOG IN
                 </Link>
@@ -161,7 +238,7 @@ export default function Navbar() {
                 <Link
                   to="/signup"
                   onClick={handleMenuClick}
-                  className="w-full bg-green-700 text-white px-2 p-2 rounded-full text-center"
+                  className="bg-green-700 text-white p-2 rounded-full text-center"
                 >
                   SIGN UP
                 </Link>

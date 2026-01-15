@@ -5,6 +5,7 @@ import { Link } from "react-router";
 import Container from "../../Shared/Container";
 import { motion } from "framer-motion";
 import LoaderCard from "../LoaderCard/LoaderCard";
+import { Darkbg } from "../../Shared/Darkbg";
 
 const sectionVariant = {
   hidden: { opacity: 0, y: 50 },
@@ -24,69 +25,85 @@ const Topscallership = () => {
     queryFn: fetchScholarships,
   });
 
-  const topScholarships = data?.data?.slice(0, 6);
-
-  if (isLoading) return <LoaderCard/>
-  if (isError) return <p>Error: {error?.message}</p>;
+  if (isError) return <p className="text-white text-center">Error: {error?.message}</p>;
 
   return (
-    <Container>
-      <div className="max-w-screen-4xl mx-auto">
-        <h1 className="text-3xl font-bold py-6 text-center">
-          Top Scholarships
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-6">
-          {topScholarships?.map((scholar) => (
-            <motion.div
-              key={scholar._id}
-              variants={sectionVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
-            >
-              <div className="relative overflow-hidden">
-                <img
-                  src={scholar.universityImage}
-                  alt={scholar.scholarshipName}
-                  className="h-52 w-full object-cover rounded-t-2xl transform group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end p-3">
-                  <span className="text-white font-semibold text-sm md:text-base drop-shadow-md">
-                    Rank: {scholar.universityWorldRank || "-"}
-                  </span>
-                </div>
+    <Darkbg>
+      <Container>
+        <div className="max-w-screen-4xl mx-auto">
+          <h1 className="text-3xl font-bold py-6 text-center text-black dark:text-white">
+            Top Scholarships
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 p-6">
+            {isLoading ? (
+              <div className="col-span-4 flex justify-center py-20">
+                <LoaderCard count={4} />
               </div>
-              <div className="p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">
-                    {scholar.universityName}
-                  </h2>
-                  <p className="text-sm text-gray-500 mb-1">
-                    <span className="font-semibold">Category:</span>{" "}
-                    {scholar.category || "International"}
-                  </p>
-                  <p className="text-sm text-gray-500 mb-1">
-                    <span className="font-semibold">Location:</span>{" "}
-                    {scholar.location}
-                  </p>
-                  <p className="text-sm text-gray-500 mb-3">
-                    <span className="font-semibold">Application Fees:</span>{" "}
-                    {scholar.applicationFees || "Free"}
-                  </p>
-                </div>
-                <Link
-                  to={`/scholarship/${scholar._id}`}
-                  className="mt-4 w-full text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-2 px-4 rounded-xl hover:scale-105 hover:shadow-lg transition-transform duration-300"
+            ) : (
+              data?.data?.slice(0, 8)?.map((scholar) => (
+                <motion.div
+                  key={scholar._id}
+                  variants={sectionVariant}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.3 }}
+                  className="
+                    bg-white dark:bg-[#0b0b0b] 
+                    border border-gray-200 dark:border-gray-700
+                    rounded-2xl shadow-lg dark:shadow-black/40
+                    overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col
+                  "
                 >
-                  View Details
-                </Link>
-              </div>
-            </motion.div>
-          ))}
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={scholar.universityImage}
+                      alt={scholar.scholarshipName}
+                      className="h-52 w-full object-cover rounded-t-2xl transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-3">
+                      <span className="text-white font-semibold text-sm md:text-base drop-shadow-md">
+                        Rank: {scholar.universityWorldRank || "-"}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-bold text-black dark:text-white mb-2">
+                        {scholar.universityName}
+                      </h2>
+                      <p className="text-sm text-gray-400 mb-1">
+                        <span className="font-semibold">Category:</span>{" "}
+                        {scholar.category || "International"}
+                      </p>
+                      <p className="text-sm text-gray-400 mb-1">
+                        <span className="font-semibold">Location:</span>{" "}
+                        {scholar.location}
+                      </p>
+                      <p className="text-sm text-gray-400 mb-3">
+                        <span className="font-semibold">Application Fees:</span>{" "}
+                        {scholar.applicationFees || "Free"}
+                      </p>
+                    </div>
+                    <Link
+                      to={`/scholarship/${scholar._id}`}
+                      className="
+                        mt-4 w-full text-center
+                        bg-gradient-to-r from-blue-600 to-indigo-600
+                        text-white font-semibold py-2 px-4 rounded-xl
+                        hover:scale-105 hover:shadow-lg
+                        transition-transform duration-300
+                      "
+                    >
+                      View Details
+                    </Link>
+                  </div>
+                </motion.div>
+              ))
+            )}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </Darkbg>
   );
 };
 

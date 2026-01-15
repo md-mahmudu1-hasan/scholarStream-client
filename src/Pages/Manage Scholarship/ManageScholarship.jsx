@@ -88,15 +88,15 @@ const fetchScholarships = async () => {
   }
 
   return (
-    <div className="w-full p-6 bg-white shadow rounded-lg">
-      <h2 className="text-3xl font-semibold mb-6 text-gray-800">
+    <div className="w-full p-6 bg-white dark:bg-gray-800 shadow rounded-lg">
+      <h2 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-white">
         Manage Scholarships
       </h2>
 
       {/* Table */}
       <div className="overflow-x-auto w-full">
-        <table className="w-full border border-gray-200 text-left">
-          <thead className="bg-gray-100">
+        <table className="w-full border border-gray-200 dark:border-gray-600 text-left">
+          <thead className="bg-gray-100 dark:bg-gray-700">
             <tr>
               <th className="p-3 border">Scholarship Name</th>
               <th className="p-3 border">University Name</th>
@@ -106,13 +106,13 @@ const fetchScholarships = async () => {
           </thead>
           <tbody>
             {scholarships.map((sch) => (
-              <tr key={sch._id} className="hover:bg-gray-50">
+              <tr key={sch._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="p-3 border">{sch.scholarshipName}</td>
                 <td className="p-3 border">{sch.universityName}</td>
                 <td className="p-3 border text-center">
                   <button
                     onClick={() => handleModal(sch._id)}
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
                   >
                     Update
                   </button>
@@ -120,7 +120,7 @@ const fetchScholarships = async () => {
                 <td className="p-3 border text-center">
                   <button
                     onClick={() => handleDelete(sch._id)}
-                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                    className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
                   >
                     Delete
                   </button>
@@ -132,139 +132,128 @@ const fetchScholarships = async () => {
       </div>
       {/* Edit Modal */}
       <dialog id="my_modal_1" ref={productRef} class="modal">
-        <div class="modal-box">
+        <div class="modal-box bg-white dark:bg-gray-800">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block font-medium">Scholarship Name</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Scholarship Name</label>
               <input
                 type="text"
                 name="scholarshipName"
                 defaultValue={Modaldata.scholarshipName}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-medium">University Name</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">University Name</label>
               <input
                 type="text"
                 name="universityName"
                 defaultValue={Modaldata.universityName}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-medium">University Image URL</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">University Image URL</label>
               <input
                 type="text"
                 name="universityImage"
                 defaultValue={Modaldata.universityImage}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">University World Rank</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">University World Rank</label>
               <input
                 type="number"
                 name="universityWorldRank"
                 defaultValue={Modaldata.universityWorldRank}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Degree</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Degree</label>
               <input
                 type="text"
                 name="degree"
                 defaultValue={Modaldata.degree}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Category</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Category</label>
               <input
                 type="text"
                 name="category"
                 defaultValue={Modaldata.category}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Subject</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Subject</label>
               <input
                 type="text"
                 name="subject"
                 defaultValue={Modaldata.subject}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Location</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Location</label>
               <input
                 type="text"
                 name="location"
                 defaultValue={Modaldata.location}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Deadline</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Deadline</label>
               <input
                 type="date"
                 name="deadline"
                 defaultValue={Modaldata.deadline}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Application Fees</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Application Fees</label>
               <input
                 type="text"
                 name="applicationFees"
                 defaultValue={Modaldata.applicationFees}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Stipend</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Stipend</label>
               <input
                 type="text"
                 name="stipend"
                 defaultValue={Modaldata?.stipend}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block font-medium">Description</label>
+              <label className="block font-medium text-gray-700 dark:text-gray-300">Description</label>
               <textarea
                 name="description"
                 defaultValue={Modaldata.description}
-                className="w-full border rounded px-3 py-2 mt-1"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 mt-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 rows="4"
               ></textarea>
-            </div>
-            <div className="flex justify-between mt-3">
-              <button
-                type="submit"
-                className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
-              >
-                Edit Scholarship
-              </button>
-              <form method="dialog">
-                <button className="btn">Close</button>
-              </form>
             </div>
           </form>
         </div>

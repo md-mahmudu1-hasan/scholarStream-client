@@ -50,13 +50,13 @@ const AllReviews = () => {
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800 text-center">
+    <div className="p-4 bg-white dark:bg-gray-800">
+      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white text-center">
         All Student Reviews
       </h2>
-      <div className="border rounded-md">
-        <table className="w-full table-fixed border-collapse text-sm">
-          <thead className="bg-gray-100 border-b">
+      <div className="border border-gray-200 dark:border-gray-600 rounded-md">
+        <table className="w-full table-fixed border-collapse text-sm border border-gray-200 dark:border-gray-600">
+          <thead className="bg-gray-100 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
             <tr>
               <th className="border px-2 py-4 w-[4%]">#</th>
               <th className="border px-2 py-4 w-[18%]">Email</th>
@@ -70,7 +70,7 @@ const AllReviews = () => {
 
           <tbody>
             {reviews.map((review, index) => (
-              <tr key={review._id} className="hover:bg-gray-50">
+              <tr key={review._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="border px-2 py-4 text-center">{index + 1}</td>
                 <td className="border px-2 py-4 truncate">
                   {review.userEmail}
@@ -81,7 +81,7 @@ const AllReviews = () => {
                 <td className="border px-2 py-4 truncate">
                   {review.universityName}
                 </td>
-                <td className="border px-2 py-4 truncate text-gray-600">
+                <td className="border border-gray-200 dark:border-gray-600 px-2 py-4 truncate text-gray-600 dark:text-gray-300">
                   {review.reviewComment}
                 </td>
                 <td className="border px-2 py-4 text-center">
@@ -90,7 +90,7 @@ const AllReviews = () => {
                 <td className="border px-2 py-4 text-center">
                   <button
                     onClick={() => handleDelete(review._id)}
-                    className="px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
+                    className="px-2 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded transition"
                   >
                     Delete
                   </button>

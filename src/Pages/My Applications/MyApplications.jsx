@@ -119,12 +119,12 @@ const MyApplications = () => {
   }
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-semibold mb-6">My Applications</h1>
+    <div className="p-6 bg-white dark:bg-gray-800">
+      <h1 className="text-3xl font-semibold mb-6 text-gray-800 dark:text-white">My Applications</h1>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full border">
-          <thead className="bg-gray-200">
+        <table className="min-w-full border border-gray-200 dark:border-gray-600">
+          <thead className="bg-gray-200 dark:bg-gray-700">
             <tr>
               <th className="border p-2">University</th>
               <th className="border p-2">Address</th>
@@ -140,7 +140,7 @@ const MyApplications = () => {
 
           <tbody>
             {applications.map((app) => (
-              <tr key={app._id} className="text-center">
+              <tr key={app._id} className="text-center hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="border p-2">{app.universityName}</td>
                 <td className="border p-2">{app.universityAddress}</td>
                 <td className="border p-2">{app.feedback || "No feedback"}</td>
@@ -157,7 +157,7 @@ const MyApplications = () => {
                         setSelectedApp(app);
                         setShowDetails(true);
                       }}
-                      className="bg-blue-600 text-white py-1 rounded"
+                      className="bg-blue-600 hover:bg-blue-700 text-white py-1 rounded transition"
                     >
                       Details
                     </button>
@@ -166,7 +166,7 @@ const MyApplications = () => {
                       <>
                         <button
                           onClick={() => handleEdit(app)}
-                          className="bg-yellow-500 text-white py-1 rounded"
+                          className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 rounded transition"
                         >
                           Edit
                         </button>
@@ -174,7 +174,7 @@ const MyApplications = () => {
                         {app.paymentStatus === "Unpaid" && (
                           <Link
                             to={`/payment/${app._id}`}
-                            className="bg-green-600 text-white py-1 rounded"
+                            className="bg-green-600 hover:bg-green-700 text-white py-1 rounded transition"
                           >
                             Pay
                           </Link>
@@ -182,7 +182,7 @@ const MyApplications = () => {
 
                         <button
                           onClick={() => handleDelete(app._id)}
-                          className="bg-red-600 text-white py-1 rounded"
+                          className="bg-red-600 hover:bg-red-700 text-white py-1 rounded transition"
                         >
                           Delete
                         </button>
@@ -195,7 +195,7 @@ const MyApplications = () => {
                           setSelectedApp(app);
                           setShowReview(true);
                         }}
-                        className="bg-purple-600 text-white py-1 rounded"
+                        className="bg-purple-600 hover:bg-purple-700 text-white py-1 rounded transition"
                       >
                         Add Review
                       </button>
@@ -207,7 +207,7 @@ const MyApplications = () => {
 
             {applications.length === 0 && (
               <tr>
-                <td colSpan="9" className="py-8 text-center text-gray-500">
+                <td colSpan="9" className="py-8 text-center text-gray-500 dark:text-gray-400">
                   No Applications found
                 </td>
               </tr>
@@ -219,14 +219,14 @@ const MyApplications = () => {
       {/* Review Modal */}
       {showReview && selectedApp && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-          <div className="bg-white p-6 rounded w-96">
-            <h2 className="text-xl font-semibold mb-4">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded w-96">
+            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
               Add Review for {selectedApp?.universityName}
             </h2>
 
             {/* Rating */}
             <div className="mb-4">
-              <label className="block mb-1 font-medium">Rating (1-5)</label>
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">Rating (1-5)</label>
               <input
                 type="number"
                 min="1"
@@ -238,13 +238,13 @@ const MyApplications = () => {
                     ratingPoint: Number(e.target.value),
                   })
                 }
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               />
             </div>
 
             {/* Comment */}
             <div className="mb-4">
-              <label className="block mb-1 font-medium">Comment</label>
+              <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">Comment</label>
               <textarea
                 value={reviewData.reviewComment}
                 onChange={(e) =>
@@ -253,7 +253,7 @@ const MyApplications = () => {
                     reviewComment: e.target.value,
                   })
                 }
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                 rows={4}
                 placeholder="Write your review here..."
               />
@@ -277,7 +277,7 @@ const MyApplications = () => {
                     selectedApp?.ScholarshipName
                   )
                 }
-                className="bg-purple-600 text-white px-4 py-2 rounded"
+                className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded transition"
               >
                 Submit
               </button>
@@ -289,8 +289,8 @@ const MyApplications = () => {
       {/* Details Modal */}
       {showDetails && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-4">Application Details</h2>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-lg">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Application Details</h2>
 
             <p>
               <b>Name:</b> {selectedApp.ApplicantName}
@@ -319,7 +319,7 @@ const MyApplications = () => {
 
             <button
               onClick={() => setShowDetails(false)}
-              className="mt-4 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800"
+              className="mt-4 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded transition"
             >
               Close
             </button>
@@ -330,27 +330,27 @@ const MyApplications = () => {
       {/* Edit Modal */}
       {showEdit && selectedApp && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-          <div className="bg-white p-6 rounded w-96">
-            <h2 className="text-xl font-semibold mb-4">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded w-96">
+            <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">
               Edit Application Subject
             </h2>
 
             <input
               value={editSubject}
               onChange={(e) => setEditSubject(e.target.value)}
-              className="w-full border px-3 py-2 rounded"
+              className="w-full border border-gray-300 dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
             />
 
             <div className="flex justify-end gap-3 mt-5">
               <button
                 onClick={() => setShowEdit(false)}
-                className="bg-gray-500 text-white px-4 py-2 rounded"
+                className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleUpdateSubject}
-                className="bg-green-600 text-white px-4 py-2 rounded"
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded transition"
               >
                 Update
               </button>

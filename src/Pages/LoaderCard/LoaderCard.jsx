@@ -1,16 +1,42 @@
 import React from "react";
 
-const LoaderCard= ({ count = 6 }) => {
+const LoaderCard = ({ count = 8 }) => {
   return (
     <div className="container mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
         {Array.from({ length: count }).map((_, index) => (
           <div
             key={index}
-            className="flex flex-col items-center gap-4 w-full mx-auto max-w-xs"
+            className="
+              flex flex-col items-center gap-4
+              w-full mx-auto max-w-xs
+            "
           >
-            <div className="skeleton h-70 w-full rounded-lg"></div>
-            <div className="skeleton h-4 w-full rounded"></div>
+            {/* Image Skeleton */}
+            <div
+              className="
+                h-72 w-full rounded-lg
+                animate-pulse
+                bg-gray-200 dark:bg-gray-800
+              "
+            ></div>
+
+            {/* Text Skeleton */}
+            <div
+              className="
+                h-4 w-full rounded
+                animate-pulse
+                bg-gray-200 dark:bg-gray-700
+              "
+            ></div>
+
+            <div
+              className="
+                h-4 w-3/4 rounded
+                animate-pulse
+                bg-gray-200 dark:bg-gray-700
+              "
+            ></div>
           </div>
         ))}
       </div>

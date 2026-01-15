@@ -5,7 +5,7 @@ import Navber from "../Pages/Navber/Navber";
 
 const Mainmother = () => {
   return (
-    <div className="bg-gray-200 min-h-screen flex flex-col">
+    <div className="bg-gray-200 dark:bg-gray-900 min-h-screen flex flex-col">
       <Navber></Navber>
       <div className="flex-1">
         <Outlet></Outlet>

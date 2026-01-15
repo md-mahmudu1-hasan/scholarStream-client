@@ -1,10 +1,13 @@
 @import "tailwindcss";
-@plugin "daisyui";
 @import "slick-carousel/slick/slick.css";
 @import "slick-carousel/slick/slick-theme.css";
 
 @import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 /* html {
   overflow-x: hidden;
 } */

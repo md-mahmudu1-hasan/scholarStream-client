@@ -93,14 +93,14 @@ export default function ManageAppliedApplications() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6 text-center">
+    <div className="max-w-7xl mx-auto p-6 bg-white dark:bg-gray-800">
+      <h1 className="text-3xl font-bold mb-6 text-center text-gray-800 dark:text-white">
         Manage Applied Applications
       </h1>
 
-      <div className="overflow-x-auto bg-white shadow-xl rounded-lg border">
-        <table className="min-w-full border">
-          <thead className="bg-gray-100 text-gray-700">
+      <div className="overflow-x-auto bg-white dark:bg-gray-800 shadow-xl rounded-lg border border-gray-200 dark:border-gray-700">
+        <table className="min-w-full border border-gray-200 dark:border-gray-600">
+          <thead className="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
             <tr>
               <th className="p-3 border">Applicant Name</th>
               <th className="p-3 border">Email</th>
@@ -114,7 +114,7 @@ export default function ManageAppliedApplications() {
 
           <tbody>
             {applications.map((app) => (
-              <tr key={app._id} className="text-center hover:bg-gray-50">
+              <tr key={app._id} className="text-center hover:bg-gray-50 dark:hover:bg-gray-700">
                 <td className="border p-3">{app.ApplicantName}</td>
                 <td className="border p-3">{app.ApplicantEmail}</td>
                 <td className="border p-3">{app.universityName}</td>
@@ -131,7 +131,7 @@ export default function ManageAppliedApplications() {
                 <td className="border p-3 space-y-2 flex flex-col">
                   <button
                     onClick={() => setSelectedDetails(app)}
-                    className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition"
                   >
                     Details
                   </button>
@@ -141,13 +141,13 @@ export default function ManageAppliedApplications() {
                       setFeedbackModal(app);
                       setFeedbackText(app.feedback || "");
                     }}
-                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                    className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded transition"
                   >
                     Feedback
                   </button>
 
                   <select
-                    className="border px-2 py-1 rounded"
+                    className="border border-gray-300 dark:border-gray-600 px-2 py-1 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                     value={app.applicationStatus}
                     onChange={(e) =>
                       handleStatusChange(app._id, e.target.value)
@@ -160,7 +160,7 @@ export default function ManageAppliedApplications() {
 
                   <button
                     onClick={() => handleCancel(app._id)}
-                    className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition"
                   >
                     Cancel
                   </button>
@@ -174,8 +174,8 @@ export default function ManageAppliedApplications() {
       {/* Details Modal */}
       {selectedDetails && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-xl shadow-2xl w-full max-w-lg">
-            <h2 className="text-2xl font-bold mb-4">Application Details</h2>
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-lg">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-white">Application Details</h2>
 
             <p>
               <b>Name:</b> {selectedDetails.ApplicantName}
@@ -204,7 +204,7 @@ export default function ManageAppliedApplications() {
 
             <button
               onClick={() => setSelectedDetails(null)}
-              className="mt-4 bg-gray-700 text-white px-4 py-2 rounded hover:bg-gray-800"
+              className="mt-4 bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded transition"
             >
               Close
             </button>
@@ -215,13 +215,13 @@ export default function ManageAppliedApplications() {
       {/* Feedback Modal */}
       {feedbackModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-xl w-96 shadow-2xl">
-            <h3 className="text-xl font-semibold mb-3">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl w-96 shadow-2xl">
+            <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">
               Write Feedback for {feedbackModal.ApplicantName}
             </h3>
 
             <textarea
-              className="w-full h-32 border rounded p-2"
+              className="w-full h-32 border border-gray-300 dark:border-gray-600 rounded p-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
               value={feedbackText}
               onChange={(e) => setFeedbackText(e.target.value)}
             ></textarea>
@@ -229,14 +229,14 @@ export default function ManageAppliedApplications() {
             <div className="flex justify-end mt-3 gap-3">
               <button
                 onClick={() => setFeedbackModal(null)}
-                className="px-4 py-2 bg-gray-500 text-white rounded"
+                className="px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded transition"
               >
                 Close
               </button>
 
               <button
                 onClick={submitFeedback}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition"
               >
                 Submit
               </button>

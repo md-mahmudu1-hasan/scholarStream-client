@@ -25,18 +25,18 @@ const DashboardLayout = () => {
 
   if (isLoading || loading) return <Loader />;
 
-  // Enhanced sidebar link class for blue and white theme
+  // Enhanced sidebar link class for blue theme with dark mode support
   const sidebarLinkClass = ({ isActive }) =>
-    `flex items-center gap-3 p-3 rounded-lg transition-colors duration-200 ${
+    `flex items-center gap-3 p-3 rounded-lg transition-all duration-200 ${
       isActive
-        ? "bg-blue-50 text-blue-700 font-bold"
-        : "hover:bg-gray-100 text-gray-700"
+        ? "bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg font-semibold"
+        : "hover:bg-gray-100 text-gray-700 dark:hover:bg-gray-800 dark:text-gray-200 hover:shadow-md"
     }`;
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       <title>Dashboard</title>
-      <header className="fixed top-0 left-0 right-0 h-[68px] bg-gradient-to-br from-blue-300 to-gray-200 shadow-lg z-40 flex items-center justify-between px-4 md:pl-64">
+      <header className="fixed top-0 left-0 right-0 h-[68px] bg-linear-to-r from-blue-600 to-blue-700 dark:from-gray-900 dark:to-gray-800 shadow-xl z-40 flex items-center justify-between px-4 md:pl-64">
         {/* Left side */}
         <div className="flex items-center gap-3">
           {/* Mobile Menu Button */}
@@ -66,10 +66,10 @@ const DashboardLayout = () => {
       </header>
 
       <div className="flex flex-1 pt-[68px]">
-        {/* Desktop Sidebar (White) */}
-        <aside className="hidden md:flex md:flex-col md:w-64 bg-white shadow-lg fixed top-0 left-0 bottom-0 pt-[68px]">
+        {/* Desktop Sidebar */}
+        <aside className="hidden md:flex md:flex-col md:w-64 bg-white dark:bg-gray-900 shadow-xl fixed top-0 left-0 bottom-0 pt-[68px] border-r border-gray-200 dark:border-gray-700">
           <nav className="flex-1 p-4 overflow-y-auto">
-            <h3 className="text-xs text-gray-400 uppercase font-semibold mb-3 tracking-wider">
+            <h3 className="text-xs text-gray-400 dark:text-gray-500 uppercase font-semibold mb-3 tracking-wider">
               Navigation
             </h3>
             <ul className="space-y-2">
@@ -166,11 +166,11 @@ const DashboardLayout = () => {
             </ul>
           </nav>
 
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
             {/* Logout Button */}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 w-full p-3 rounded-lg hover:bg-red-50 transition text-red-600 font-medium"
+              className="flex items-center gap-2 w-full p-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/40 transition text-red-600 dark:text-red-400 font-medium"
             >
               <FiLogOut /> Logout
             </button>
@@ -185,15 +185,15 @@ const DashboardLayout = () => {
           ></div>
         )}
         <div
-          className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-30 transform md:hidden transition-transform duration-300 ${
+          className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-900 shadow-xl z-30 transform md:hidden transition-transform duration-300 ${
             open ? "translate-x-0" : "-translate-x-full"
           } pt-[68px] flex flex-col`}
         >
-          <div className="flex justify-between items-center p-4 border-b">
-            <h2 className="text-lg font-bold text-blue-600">Dashboard Menu</h2>
+          <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-lg font-bold text-blue-600 dark:text-blue-300">Dashboard Menu</h2>
             <button
               onClick={() => setOpen(false)}
-              className="p-2 rounded-lg hover:bg-gray-100 transition"
+              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition"
             >
               <FiX size={22} />
             </button>
@@ -301,14 +301,14 @@ const DashboardLayout = () => {
               )}
             </ul>
           </nav>
-          <div className="p-4 border-t">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
             {/* Logout Button - Mobile */}
             <button
               onClick={() => {
                 handleLogout();
                 setOpen(false);
               }}
-              className="flex items-center gap-2 w-full p-3 rounded-lg hover:bg-red-50 transition text-red-600 font-medium"
+              className="flex items-center gap-2 w-full p-3 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/40 transition text-red-600 dark:text-red-400 font-medium"
             >
               <FiLogOut /> Logout
             </button>
@@ -316,7 +316,7 @@ const DashboardLayout = () => {
         </div>
 
         {/* Main Content Area */}
-        <main className="flex-1 md:ml-64 p-6 bg-gray-50 min-h-screen">
+        <main className="flex-1 md:ml-64 p-6 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
           <Outlet />
         </main>
       </div>

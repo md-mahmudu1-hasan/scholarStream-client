@@ -98,16 +98,16 @@ const chartOptions = {
   const totalScholarships = totalScholarshipsData?.data?.length;
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h1 className="text-2xl font-bold mb-6">Platform Analytics</h1>
+    <div className="p-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800 dark:text-white">Platform Analytics</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="p-4 bg-white rounded-lg shadow text-center">
-          <p className="text-gray-500">Total Users</p>
+        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700">
+          <p className="text-gray-500 dark:text-gray-400">Total Users</p>
           <p className="text-3xl font-semibold">{totalUsers}</p>
         </div>
-        <div className="p-4 bg-white rounded-lg shadow text-center">
-          <p className="text-gray-500">Total Scholarships</p>
+        <div className="p-4 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700">
+          <p className="text-gray-500 dark:text-gray-400">Total Scholarships</p>
           <p className="text-3xl font-semibold">{totalScholarships}</p>
         </div>
       </div>
