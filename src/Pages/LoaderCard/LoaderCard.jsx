@@ -12,21 +12,18 @@ const LoaderCard = ({ count = 8 }) => {
               w-full mx-auto max-w-xs
             "
           >
-            {/* Image Skeleton */}
             <div
               className="
                 h-72 w-full rounded-lg
                 animate-pulse
-                bg-gray-200 dark:bg-gray-800
+                dark:bg-gray-200 bg-gray-800
               "
             ></div>
-
-            {/* Text Skeleton */}
             <div
               className="
                 h-4 w-full rounded
                 animate-pulse
-                bg-gray-200 dark:bg-gray-700
+                dark:bg-gray-200 bg-gray-700
               "
             ></div>
 

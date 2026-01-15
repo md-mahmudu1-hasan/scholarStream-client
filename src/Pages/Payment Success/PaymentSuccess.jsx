@@ -13,11 +13,9 @@ const PaymentSuccess = () => {
 
   useEffect(() => {
     if (sessionId) {
-      axiosInstance
-        .get(`/applications/${sessionId}`)
-        .then((res) => {
-          setPaymentData(res.data[0]);
-        })
+      axiosInstance.get(`/applications/${sessionId}`).then((res) => {
+        setPaymentData(res.data[0]);
+      });
     }
   }, [sessionId, axiosInstance]);
 
@@ -25,48 +23,78 @@ const PaymentSuccess = () => {
     if (sessionId) {
       axiosInstance
         .patch(`/applications/${sessionId}`, { paymentStatus: "Paid" })
-        .then(() => {
-        })
-        .catch(() => {
-        });
+        .then(() => {})
+        .catch(() => {});
     }
   }, [axiosInstance, sessionId]);
 
   if (!paymentData) {
     return (
-      <Loader></Loader>
+      <div
+        className="min-h-screen flex items-center justify-center 
+    bg-gray-100 dark:bg-[#0d1224]"
+      >
+        <Loader />
+      </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="bg-white shadow-lg rounded-xl p-8 max-w-lg w-full">
-        <h2 className="text-3xl font-bold text-green-600 text-center mb-4">
+    <div
+      className="min-h-screen flex items-center justify-center px-4
+    bg-gray-100 dark:bg-[#0d1224]"
+    >
+      <div
+        className="w-full max-w-lg rounded-xl shadow-lg p-8
+      bg-white dark:bg-[#111827]
+      text-gray-900 dark:text-white"
+      >
+        <h2
+          className="text-3xl font-bold text-center mb-4
+      text-green-600 dark:text-green-400"
+        >
           Payment Successful
         </h2>
 
-        <p className="text-center text-gray-600 mb-6">
+        <p
+          className="text-center mb-6
+      text-gray-600 dark:text-gray-300"
+        >
           Thank you! Your scholarship application fee has been paid
           successfully.
         </p>
 
-        <div className="border rounded-lg p-4 space-y-3">
-          <div className="flex justify-between">
-            <span className="font-medium">Scholarship Name</span>
-            <span>{paymentData.ScholarshipName}</span>
+        <div
+          className="border rounded-lg p-4 space-y-3
+        border-gray-300 dark:border-gray-600"
+        >
+          <div className="flex justify-between gap-4">
+            <span className="font-medium text-gray-600 dark:text-gray-300">
+              Scholarship Name
+            </span>
+            <span className="text-right">{paymentData.ScholarshipName}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="font-medium">University Name</span>
-            <span>{paymentData.universityName}</span>
+          <div className="flex justify-between gap-4">
+            <span className="font-medium text-gray-600 dark:text-gray-300">
+              University Name
+            </span>
+            <span className="text-right">{paymentData.universityName}</span>
           </div>
 
-          <div className="flex justify-between">
-            <span className="font-medium">Applicant Email</span>
-            <span>{paymentData.ApplicantEmail}</span>
+          <div className="flex justify-between gap-4">
+            <span className="font-medium text-gray-600 dark:text-gray-300">
+              Applicant Email
+            </span>
+            <span className="text-right break-all">
+              {paymentData.ApplicantEmail}
+            </span>
           </div>
 
-          <div className="flex justify-between text-lg font-semibold text-green-600">
+          <div
+            className="flex justify-between text-lg font-semibold
+          text-green-600 dark:text-green-400"
+          >
             <span>Amount Paid</span>
             <span>${paymentData.applicationFees}</span>
           </div>
@@ -74,7 +102,8 @@ const PaymentSuccess = () => {
 
         <button
           onClick={() => navigate("/dashboard/my-applications")}
-          className="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition"
+          className="w-full mt-6 py-3 rounded-lg font-semibold transition
+        bg-blue-600 hover:bg-blue-700 text-white"
         >
           Go to My Applications
         </button>

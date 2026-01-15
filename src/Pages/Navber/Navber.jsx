@@ -111,6 +111,16 @@ export default function Navbar() {
               Help / Support
             </NavLink>
 
+            {user && (
+              <Link
+                to="/dashboard"
+                onClick={handleMenuClick}
+                className={navLinkClass}
+              >
+                Dashboard
+              </Link>
+            )}
+
             {user ? (
               <div className="relative">
                 <img
