@@ -65,7 +65,8 @@ const AuthProvider = ({ children }) => {
     <div>
       <AuthContext value={authinfo}>{children}</AuthContext>
     </div>
-  );
+  
+);
 };
 
 export default AuthProvider;
